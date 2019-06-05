@@ -5,3 +5,6 @@ Finished a proposal regarding the individual impact of dietary and lifestyle cho
 
 ## 04/06
 Found a new dataset about different fishing methods that were used in the North Sea. Decided to visualize that dataset against changes in sea fauna per location to assess if there are correlations between increases / decreases in certain fishing methods and the fauna.
+
+## 05/06
+Converting all datasets to CSV files in order to process them to JSON files.
