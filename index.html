@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<!-- Name: Max Frings
+     Student number: 10544429
+     Course: Programmeerproject 2018/2019 (Semester 2)
+     This file's purpose in life is to visualize fishing methods throughout
+     the past 25 years and the amount of fauna in different locations in the
+     North Sea.
+     https://www.clo.nl/indicatoren/nl0587-visserijtechnieken -->
+
+<html lang="en" >
+
+  <head>
+
+    <meta charset="UTF-8">
+    <title>Fishing methods and correlating fauna trends in the North Sea</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src='js/index.js'></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <input type="range" class="custom-range" id="customRange1">
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6" id="fishingmethods">
+          <svg id="fishingmethods_stackedbars"></svg>
+        </div>
+        <div class="col-6" id="faunachange">
+          <svg id="faunachange_relativebars"></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6" id="specieschange">
+          <svg id="specieschange_circularbars"></svg>
+        </div>
+        <div class="col-6" id="faunatotal">
+          <svg id="faunatotal_relativebars"></svg>
+        </div>
+      </div>
+    </div>
+
+  </body>
+
+</html>
