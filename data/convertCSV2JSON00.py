@@ -21,9 +21,9 @@ def csv_to_json(csv_file, headerlines, index):
 
     data.set_index(index, inplace=True)
 
-    data.to_json(csv_file.strip('.csv') + '.json', orient='index')
+    data.to_json(r'data.json', orient='index')
     return data
 
 
 if __name__ == '__main__':
-    data = csv_to_json(get_name(), 0, "Year")
+    data = csv_to_json(get_name(), 0, "Species")
