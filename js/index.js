@@ -1,4 +1,5 @@
-
+console.log(d3v4.version)
+console.log(d3.version)
 
 
 /* Data in strings like it would be if imported from a csv */
@@ -227,7 +228,7 @@ bars.append("text")
 ////////////////////////////* Circular bar plot *///////////////////////////////
 
 var json_data = $.getJSON("../data/allindividuals.json", function(data) {
-  var data = data["west"]["1995"];
+  var data = data["wadden"]["1993"]["bodem"];
 
   // set the dimensions and margins of the graph
   var margin = {top: 100, right: 0, bottom: 0, left: 0},
@@ -237,25 +238,25 @@ var json_data = $.getJSON("../data/allindividuals.json", function(data) {
       outerRadius = Math.min(width, height) / 2;   // the outerRadius goes from the middle of the SVG area to the border
 
   // append the svg object
-  var svg = d3.select("#specieschange_circularbars")
-    .append("svg")
-      .attr("width", $("#specieschange").width() + margin.left + margin.right)
-      .attr("height", $("#specieschange").height() + margin.top + margin.bottom)
+  var svg = d3v4.select("#specieschange_circularbars")
+      .attr("width", 1000 + margin.left + margin.right)
+      .attr("height", 1000 + margin.top + margin.bottom)
     .append("g")
       .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")");
 
     // X scale: common for 2 data series
-    var x = d3.scale.ordinal()
+    var x = d3v4.scaleBand()
         .range([0, 2 * Math.PI])    // X axis goes from 0 to 2pi = all around the circle. If I stop at 1Pi, it will be around a half circle
+        .align(0)                  // This does nothing
         .domain(data.map(function(d) { return d.name; })); // The domain of the X axis is the list of states.
 
     // Y scale outer variable
-    var y = d3.scaleRadial()
+    var y = d3v4.scaleRadial()
         .range([innerRadius, outerRadius])   // Domain will be define later.
         .domain([0, 13000]); // Domain of Y is from 0 to the max seen in the data
 
     // Second barplot Scales
-    var ybis = d3.scaleRadial()
+    var ybis = d3v4.scaleRadial()
         .range([innerRadius, 5])   // Domain will be defined later.
         .domain([0, 13000]);
 
@@ -267,7 +268,7 @@ var json_data = $.getJSON("../data/allindividuals.json", function(data) {
       .append("path")
         .attr("fill", "#69b3a2")
         .attr("class", "yo")
-        .attr("d", d3.arc()     // imagine your doing a part of a donut plot
+        .attr("d", d3v4.arc()     // imagine your doing a part of a donut plot
             .innerRadius(innerRadius)
             .outerRadius(function(d) { return y(d['value']); })
             .startAngle(function(d) { return x(d.name); })
@@ -296,7 +297,7 @@ var json_data = $.getJSON("../data/allindividuals.json", function(data) {
       .enter()
       .append("path")
         .attr("fill", "red")
-        .attr("d", d3.arc()     // imagine your doing a part of a donut plot
+        .attr("d", d3v4.arc()     // imagine your doing a part of a donut plot
             .innerRadius( function(d) { return ybis(0) })
             .outerRadius( function(d) { return ybis(d['Value']); })
             .startAngle(function(d) { return x(d.name); })
