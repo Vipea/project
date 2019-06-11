@@ -114,9 +114,9 @@ for i in waddenbird:
 
 allindividuals = {}
 allindividuals["coastal"] = coastalbird
-allindividuals["oost"] = oostbird
-allindividuals["west"] = westbird
-allindividuals["wadden"] = waddenbird
+allindividuals["oosterschelde"] = oostbird
+allindividuals["westerschelde"] = westbird
+allindividuals["waddenzee"] = waddenbird
 
 
 with open('allindividuals.json', 'w') as f:
