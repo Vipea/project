@@ -142,7 +142,6 @@ console.log("hoi")
 
 var json_data = $.getJSON("../data/all_locations.json", function(data) {
   var data = data["1995"];
-  console.log(data)
 
 
 //sort bars based on value
@@ -244,8 +243,8 @@ var json_data = $.getJSON("../data/allindividuals.json", function(data) {
       .attr("class", "circlesvg")
     .attr("height", 600 + margin.top + margin.bottom)
     .append("g")
-      .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")");
-
+      .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")")
+      .attr("class", "theg")
     // X scale: common for 2 data series
     var x = d3v4.scaleBand()
         .range([0, 2 * Math.PI])    // X axis goes from 0 to 2pi = all around the circle. If I stop at 1Pi, it will be around a half circle
@@ -296,26 +295,42 @@ var json_data = $.getJSON("../data/allindividuals.json", function(data) {
 
 
           // Function to change circular bars
-          function changeCircular(species) {
-            console.log(species)
+          function changeCircular(data, location, year, species) {
 
-            data = datacopy["wadden"]["1993"][species]
-            console.log(d3v4.select(".circlesvg").exit().remove())
-            d3v4.select(".circlesvg").exit().remove()
+            data = data[location][year][species]
 
-            d3v4.selectAll(".yo")
-            .exit()
-            .remove()
+            // X scale: common for 2 data series
+            var x = d3v4.scaleBand()
+                .range([0, 2 * Math.PI])    // X axis goes from 0 to 2pi = all around the circle. If I stop at 1Pi, it will be around a half circle
+                .align(0)                  // This does nothing
+                .domain(data.map(function(d) { return d.name; })); // The domain of the X axis is the list of states.
 
-            d3v4.selectAll(".speciesbar")
-            .exit()
-            .remove()
+            // Y scale outer variable
+            var y = d3v4.scaleRadial()
+                .range([innerRadius, outerRadius])   // Domain will be define later.
+                .domain([0, 13000]); // Domain of Y is from 0 to the max seen in the data
 
-            d3v4.selectAll(".specieslabel")
-            .exit()
-            .remove()
+
+            een = d3v4.selectAll(".yo")
+            een.remove()
+            twee = d3v4.selectAll(".speciesbar")
+            twee.remove()
+            drie = d3v4.selectAll(".specieslabel")
+            drie.remove()
+            gg = d3v4.select(".theg")
+
+            gg.remove()
+
+
+
+
+
+
 
               var svg = d3v4.select("#specieschange_circularbars")
+              .append("g")
+                .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")")
+                .attr("class", "theg")
 
             // Add the bars
             svg.append("g")
@@ -327,12 +342,16 @@ var json_data = $.getJSON("../data/allindividuals.json", function(data) {
                 .attr("class", "yo")
                 .attr("d", d3v4.arc()     // imagine your doing a part of a donut plot
                     .innerRadius(innerRadius)
-                    .outerRadius(function(d) { return y(d['value']); })
-                    .startAngle(function(d) { return x(d.name); })
-                    .endAngle(function(d) { return x(d.name) + x.bandwidth(); })
+                    .outerRadius(function(d) {
+                      return y(d['value']); })
+                    .startAngle(function(d) {
+                       return x(d.name); })
+                    .endAngle(function(d) {
+                      return x(d.name) + x.bandwidth(); })
                     .padAngle(0.01)
                     .padRadius(innerRadius))
 
+            console.log(data)
             // Add the labels
             svg.append("g")
                 .selectAll("g")
@@ -352,7 +371,8 @@ var json_data = $.getJSON("../data/allindividuals.json", function(data) {
 
           // Onchange event for selecting species triggers changeCircular()
           $("#select_species").change(function() {
-            changeCircular($("#select_species").val())
+            console.log(datacopy)
+            changeCircular(datacopy, "coastal", "2002", $("#select_species").val())
           })
 
   });
@@ -361,18 +381,8 @@ var json_data = $.getJSON("../data/allindividuals.json", function(data) {
 
 ////////////////////////////* Total Line Chart *///////////////////////////////
 var json_data = $.getJSON("../data/new_totals.json", function(data) {
-  var data = data["coastal"];
-  console.log(data)
-
-var myData = "date	New York\n\
-20111001	63.4\n\
-20111002	58.0\n\
-20111003	53.3\n\
-20111004	55.7\n\
-20111005	64.2\n\
-20111006	58.8\n\
-20111022	54.4\n";
-
+  var locationdata = data
+  var data = data
 
 var margin = {
     top: 20,
@@ -401,228 +411,233 @@ var yAxis = d3.svg.axis()
   .scale(y)
   .orient("left");
 
-var line = d3.svg.line()
-  .interpolate("basis")
-  .x(function(d) {
-    return x(d.date);
-  })
-  .y(function(d) {
-    return y(d.temperature);
-  });
+  function changeLine(data, location) {
+    d3.select(".totalline").remove()
+    data = data[location]
+    console.log(data)
+    var line = d3.svg.line()
+      .interpolate("basis")
+      .x(function(d) {
+        return x(d.date);
+      })
+      .y(function(d) {
+        return y(d.temperature);
+      });
 
-var svg = d3.select("#faunatotal_linechart")
-  .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    var svg = d3.select("#faunatotal_linechart")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+      .attr("class", "totalline");
 
-//var data = d3.tsv.parse(myData);
+    //var data = d3.tsv.parse(myData);
+    console.log("komtie")
+    console.log(locationdata)
 
-console.log(data)
+    color.domain(d3.keys(data[0]).filter(function(key) {
+      return key !== "date";
+    }));
 
-color.domain(d3.keys(data[0]).filter(function(key) {
-  return key !== "date";
-}));
+    console.log("hoi")
 
-console.log("hoi")
+    data.forEach(function(d) {
+      d.date = d.date;
+    });
 
-data.forEach(function(d) {
-  d.date = d.date;
-});
-
-var cities = color.domain().map(function(name) {
-  return {
-    name: name,
-    values: data.map(function(d) {
+    var cities = color.domain().map(function(name) {
       return {
-        date: d.date,
-        temperature: +d[name]
+        name: name,
+        values: data.map(function(d) {
+          return {
+            date: d.date,
+            temperature: +d[name]
+          };
+        })
       };
-    })
-  };
-});
-
-x.domain(d3.extent(data, function(d) {
-  return d.date;
-}));
-
-y.domain([
-  d3.min(cities, function(c) {
-    return d3.min(c.values, function(v) {
-      return v.temperature;
     });
-  }),
-  d3.max(cities, function(c) {
-    return d3.max(c.values, function(v) {
-      return v.temperature;
-    });
-  })
-]);
 
-console.log(cities)
+    x.domain(d3.extent(data, function(d) {
+      return d.date;
+    }));
 
-var legend = svg.selectAll('g')
-  .data(cities)
-  .enter()
-  .append('g')
-  .attr('class', 'legend');
+    y.domain([
+      d3.min(cities, function(c) {
+        return d3.min(c.values, function(v) {
+          return v.temperature;
+        });
+      }),
+      d3.max(cities, function(c) {
+        return d3.max(c.values, function(v) {
+          return v.temperature;
+        });
+      })
+    ]);
 
-legend.append('rect')
-  .attr('x', width - 20)
-  .attr('y', function(d, i) {
-    return i * 20;
-  })
-  .attr('width', 10)
-  .attr('height', 10)
-  .style('fill', function(d) {
-    return color(d.name);
-  });
 
-legend.append('text')
-  .attr('x', width - 8)
-  .attr('y', function(d, i) {
-    return (i * 20) + 9;
-  })
-  .text(function(d) {
-    return d.name;
-  });
+    var legend = svg.selectAll('g')
+      .data(cities)
+      .enter()
+      .append('g')
+      .attr('class', 'legend');
 
-svg.append("g")
-  .attr("class", "x axis")
-  .attr("transform", "translate(0," + height + ")")
-  .call(xAxis);
-
-svg.append("g")
-  .attr("class", "y axis")
-  .call(yAxis)
-  .append("text")
-  .attr("transform", "rotate(-90)")
-  .attr("y", 6)
-  .attr("dy", ".71em")
-  .style("text-anchor", "end")
-  .text("Temperature (ºF)");
-
-var city = svg.selectAll(".city")
-  .data(cities)
-  .enter().append("g")
-  .attr("class", "city");
-
-city.append("path")
-  .attr("class", "line")
-  .attr("d", function(d) {
-    return line(d.values);
-  })
-  .style("stroke", function(d) {
-    return color(d.name);
-  });
-
-city.append("text")
-  .datum(function(d) {
-    return {
-      name: d.name,
-      value: d.values[d.values.length - 1]
-    };
-  })
-  .attr("transform", function(d) {
-    return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")";
-  })
-  .attr("x", 3)
-  .attr("dy", ".35em")
-  .text(function(d) {
-    return d.name;
-  });
-
-var mouseG = svg.append("g")
-  .attr("class", "mouse-over-effects");
-
-mouseG.append("path") // this is the black vertical line to follow mouse
-  .attr("class", "mouse-line")
-  .style("stroke", "black")
-  .style("stroke-width", "1px")
-  .style("opacity", "0");
-
-var lines = document.getElementsByClassName('line');
-
-var mousePerLine = mouseG.selectAll('.mouse-per-line')
-  .data(cities)
-  .enter()
-  .append("g")
-  .attr("class", "mouse-per-line");
-
-mousePerLine.append("circle")
-  .attr("r", 7)
-  .style("stroke", function(d) {
-    return color(d.name);
-  })
-  .style("fill", "none")
-  .style("stroke-width", "1px")
-  .style("opacity", "0");
-
-mousePerLine.append("text")
-  .attr("transform", "translate(10,3)");
-
-mouseG.append('svg:rect') // append a rect to catch mouse movements on canvas
-  .attr('width', width) // can't catch mouse events on a g element
-  .attr('height', height)
-  .attr('fill', 'none')
-  .attr('pointer-events', 'all')
-  .on('mouseout', function() { // on mouse out hide line, circles and text
-    d3.select(".mouse-line")
-      .style("opacity", "0");
-    d3.selectAll(".mouse-per-line circle")
-      .style("opacity", "0");
-    d3.selectAll(".mouse-per-line text")
-      .style("opacity", "0");
-  })
-  .on('mouseover', function() { // on mouse in show line, circles and text
-    d3.select(".mouse-line")
-      .style("opacity", "1");
-    d3.selectAll(".mouse-per-line circle")
-      .style("opacity", "1");
-    d3.selectAll(".mouse-per-line text")
-      .style("opacity", "1");
-  })
-  .on('mousemove', function() { // mouse moving over canvas
-    var mouse = d3.mouse(this);
-    d3.select(".mouse-line")
-      .attr("d", function() {
-        var d = "M" + mouse[0] + "," + height;
-        d += " " + mouse[0] + "," + 0;
-        return d;
+    legend.append('rect')
+      .attr('x', width - 20)
+      .attr('y', function(d, i) {
+        return i * 20;
+      })
+      .attr('width', 10)
+      .attr('height', 10)
+      .style('fill', function(d) {
+        return color(d.name);
       });
 
-    d3.selectAll(".mouse-per-line")
-      .attr("transform", function(d, i) {
-        var xDate = x.invert(mouse[0]),
-            bisect = d3.bisector(function(d) { return d.date; }).right;
-            idx = bisect(d.values, xDate);
-
-        var beginning = 0,
-            end = lines[i].getTotalLength(),
-            target = null;
-
-        while (true){
-          target = Math.floor((beginning + end) / 2);
-          pos = lines[i].getPointAtLength(target);
-          if ((target === end || target === beginning) && pos.x !== mouse[0]) {
-              break;
-          }
-          if (pos.x > mouse[0])      end = target;
-          else if (pos.x < mouse[0]) beginning = target;
-          else break; //position found
-        }
-
-        d3.select(this).select('text')
-          .text(y.invert(pos.y).toFixed(2));
-
-        return "translate(" + mouse[0] + "," + pos.y +")";
+    legend.append('text')
+      .attr('x', width - 8)
+      .attr('y', function(d, i) {
+        return (i * 20) + 9;
+      })
+      .text(function(d) {
+        return d.name;
       });
-  });
 
+    svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+    svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+      .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Temperature (ºF)");
+
+    var city = svg.selectAll(".city")
+      .data(cities)
+      .enter().append("g")
+      .attr("class", "city");
+
+    city.append("path")
+      .attr("class", "line")
+      .attr("d", function(d) {
+        return line(d.values);
+      })
+      .style("stroke", function(d) {
+        return color(d.name);
+      });
+
+    city.append("text")
+      .datum(function(d) {
+        return {
+          name: d.name,
+          value: d.values[d.values.length - 1]
+        };
+      })
+      .attr("transform", function(d) {
+        return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")";
+      })
+      .attr("x", 3)
+      .attr("dy", ".35em")
+      .text(function(d) {
+        return d.name;
+      });
+
+    var mouseG = svg.append("g")
+      .attr("class", "mouse-over-effects");
+
+    mouseG.append("path") // this is the black vertical line to follow mouse
+      .attr("class", "mouse-line")
+      .style("stroke", "black")
+      .style("stroke-width", "1px")
+      .style("opacity", "0");
+
+    var lines = document.getElementsByClassName('line');
+
+    var mousePerLine = mouseG.selectAll('.mouse-per-line')
+      .data(cities)
+      .enter()
+      .append("g")
+      .attr("class", "mouse-per-line");
+
+    mousePerLine.append("circle")
+      .attr("r", 7)
+      .style("stroke", function(d) {
+        return color(d.name);
+      })
+      .style("fill", "none")
+      .style("stroke-width", "1px")
+      .style("opacity", "0");
+
+    mousePerLine.append("text")
+      .attr("transform", "translate(10,3)");
+
+    mouseG.append('svg:rect') // append a rect to catch mouse movements on canvas
+      .attr('width', width) // can't catch mouse events on a g element
+      .attr('height', height)
+      .attr('fill', 'none')
+      .attr('pointer-events', 'all')
+      .on('mouseout', function() { // on mouse out hide line, circles and text
+        d3.select(".mouse-line")
+          .style("opacity", "0");
+        d3.selectAll(".mouse-per-line circle")
+          .style("opacity", "0");
+        d3.selectAll(".mouse-per-line text")
+          .style("opacity", "0");
+      })
+      .on('mouseover', function() { // on mouse in show line, circles and text
+        d3.select(".mouse-line")
+          .style("opacity", "1");
+        d3.selectAll(".mouse-per-line circle")
+          .style("opacity", "1");
+        d3.selectAll(".mouse-per-line text")
+          .style("opacity", "1");
+      })
+      .on('mousemove', function() { // mouse moving over canvas
+        var mouse = d3.mouse(this);
+        d3.select(".mouse-line")
+          .attr("d", function() {
+            var d = "M" + mouse[0] + "," + height;
+            d += " " + mouse[0] + "," + 0;
+            return d;
+          });
+
+        d3.selectAll(".mouse-per-line")
+          .attr("transform", function(d, i) {
+            var xDate = x.invert(mouse[0]),
+                bisect = d3.bisector(function(d) { return d.date; }).right;
+                idx = bisect(d.values, xDate);
+
+            var beginning = 0,
+                end = lines[i].getTotalLength(),
+                target = null;
+
+            while (true){
+              target = Math.floor((beginning + end) / 2);
+              pos = lines[i].getPointAtLength(target);
+              if ((target === end || target === beginning) && pos.x !== mouse[0]) {
+                  break;
+              }
+              if (pos.x > mouse[0])      end = target;
+              else if (pos.x < mouse[0]) beginning = target;
+              else break; //position found
+            }
+
+            d3.select(this).select('text')
+              .text(y.invert(pos.y).toFixed(2));
+
+            return "translate(" + mouse[0] + "," + pos.y +")";
+          });
 });
-window.onload = function () {
-
-
-
-
 }
+changeLine(locationdata, "coastal")
+
+  // Onchange event for selecting species triggers changeCircular()
+  $("#select_location").change(function() {
+    changeLine(locationdata, $("#select_location").val())
+  })
+
+});
