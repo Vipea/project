@@ -4,6 +4,7 @@ console.log(d3.version)
 
 /* Data in strings like it would be if imported from a csv */
 
+//* FISHING METHODS *//*********************************************************
 var json_data = $.getJSON("../data/fishingmethods.json", function(data) {
   var data = data;
   console.log(data)
@@ -140,95 +141,152 @@ console.log("hoi")
     .attr("font-weight", "bold");
 });
 
+//* HORIZONTAL BARS *//*********************************************************
 var json_data = $.getJSON("../data/all_locations.json", function(data) {
-  var data = data["1995"];
+  var data = data;
+  var locationdata = data;
+  console.log(locationdata)
+  var initializedata = data["1990"]
+  console.log(data)
 
 
-//sort bars based on value
-data = data.sort(function (a, b) {
-    return d3.ascending(a.value, b.value);
+
+  //set up svg using margin conventions - we'll need plenty of room on the left for labels
+  var margin = {
+      top: 15,
+      right: 25,
+      bottom: 15,
+      left: 60
+  };
+
+  var width = $("#faunachange").width() - margin.left - margin.right,
+      height = $("#faunachange").height() - margin.top - margin.bottom;
+
+  var svg = d3.select("#faunachange_relativebars")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var x = d3.scale.linear()
+      .range([0, 200])
+      .domain([0, 20]);
+
+  var y = d3.scale.ordinal()
+      .rangeRoundBands([height, 0], .1)
+      .domain(initializedata.map(function (d) {
+          return d.location;
+      }));
+
+  //make y axis to show bar names
+  var yAxis = d3.svg.axis()
+      .scale(y)
+      //no tick marks
+      .tickSize(0)
+      .orient("left");
+  var gy = svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+
+  function changeBars(locationdata, year) {
+
+    svg.selectAll(".bar").remove()
+    svg.selectAll(".overall_label").remove()
+    svg.selectAll(".overall_title").remove()
+    svg.select(".divide").remove()
+
+    data = locationdata[year]
+    console.log(data)
+
+  var bars = svg.selectAll(".bar")
+      .data(data)
+      .enter()
+      .append("g")
+
+  //append rects
+  bars.append("rect")
+      .attr("class", "bar")
+      .attr("y", function (d) {
+          return y(d.location);
+      })
+      .attr("height", y.rangeBand())
+      .attr("x", function (d) {
+        if (d.value - 100 >= 0) {
+          return 200
+        }
+        else {
+          return 200 - x(100 - d.value)
+        }
+      })
+      .attr("width", function (d) {
+        console.log
+          return x(Math.abs(100 - d.value))
+      })
+      .attr("fill", function(d) {
+        if (d.value - 100 >= 0) {
+          return "#98FB98"
+        }
+        else {
+          return "#ff6961"
+        }
+      })
+
+  //add a value label to the right of each bar
+  bars.append("text")
+      .attr("class", "overall_label")
+      //y position of the label is halfway down the bar
+      .attr("y", function (d) {
+          return y(d.location) + y.rangeBand() / 2 + 4;
+      })
+      //x position is 3 pixels to the right of the bar
+      .attr("x", function (d) {
+        if (d.value - 100 >= 0) {
+          return 200 + x(Math.abs(100 - d.value)) + 10
+        }
+        else {
+          return 200 - x(100 - d.value) - 25
+        }
+      })
+      .text(function (d) {
+          return d.value - 100 + "%";
+      });
+
+      svg.append("path")
+                    .attr("d", " M 199 0 L 199 500 L 201 500 L 201 0 ")
+      .attr("fill", "red")
+      .attr("class", "divide")
+
+      // Set legend title
+      svg.append("text")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("dy", ".25em")
+        .text("Overall fauna change per location in " + year)
+        .attr("fill", "black")
+        .style("font-size", 20)
+        .style("font-family", "sans-serif")
+        .attr("class", "overall_title")
+      }
+      changeBars(locationdata, "1991")
+
+      let slider = document.getElementById("customRange1");
+      console.log("Voor jaj")
+      slider.onchange = function() {
+        console.log("jaja")
+        console.log(locationdata)
+        changeBars(locationdata, slider.value)
+      };
 })
 
-//set up svg using margin conventions - we'll need plenty of room on the left for labels
-var margin = {
-    top: 15,
-    right: 25,
-    bottom: 15,
-    left: 60
-};
-
-var width = $("#faunachange").width() - margin.left - margin.right,
-    height = $("#faunachange").height() - margin.top - margin.bottom;
-
-var svg = d3.select("#faunachange_relativebars")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-var x = d3.scale.linear()
-    .range([0, width])
-    .domain([-100, 100]);
-
-var y = d3.scale.ordinal()
-    .rangeRoundBands([height, 0], .1)
-    .domain(data.map(function (d) {
-        return d.location;
-    }));
-
-//make y axis to show bar names
-var yAxis = d3.svg.axis()
-    .scale(y)
-    //no tick marks
-    .tickSize(0)
-    .orient("left");
-var gy = svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxis)
 
 
-var bars = svg.selectAll(".bar")
-    .data(data)
-    .enter()
-    .append("g")
 
-//append rects
-bars.append("rect")
-    .attr("class", "bar")
-    .attr("y", function (d) {
-        return y(d.location);
-    })
-    .attr("height", y.rangeBand())
-    .attr("x", 0)
-    .attr("width", function (d) {
-        return x(d.value);
-    });
-
-//add a value label to the right of each bar
-bars.append("text")
-    .attr("class", "label")
-    //y position of the label is halfway down the bar
-    .attr("y", function (d) {
-        return y(d.location) + y.rangeBand() / 2 + 4;
-    })
-    //x position is 3 pixels to the right of the bar
-    .attr("x", function (d) {
-        return x(d.value) + 3;
-    })
-    .text(function (d) {
-        return d.value;
-    });
-
-    svg.append("path")
-                  .attr("d", " M 99 0 L 99 500 L 101 500 L 101 0 ")
-    .attr("fill", "red")
-})
 
 ////////////////////////////* Circular bar plot *///////////////////////////////
-
 var json_data = $.getJSON("../data/allindividuals.json", function(data) {
   var datacopy = data
-  var data = data["wadden"]["1993"]["fish"];
+  console.log(data)
+  var data = data["waddenzee"]["1993"]["fish"];
 
   // set the dimensions and margins of the graph
   var margin = {top: 100, right: 0, bottom: 0, left: 0},
@@ -296,8 +354,13 @@ var json_data = $.getJSON("../data/allindividuals.json", function(data) {
 
           // Function to change circular bars
           function changeCircular(data, location, year, species) {
+            console.log(data)
+            console.log(location)
 
+            console.log(species)
+            console.log(typeof year)
             data = data[location][year][species]
+            console.log(data)
 
             // X scale: common for 2 data series
             var x = d3v4.scaleBand()
@@ -367,19 +430,50 @@ var json_data = $.getJSON("../data/allindividuals.json", function(data) {
                   .style("font-size", "11px")
                   .attr("alignment-baseline", "middle")
                   .attr("class", "specieslabel")
+
+                  // Set legend title
+                  svg.append("text")
+                    .attr("x", -170)
+                    .attr("y", -260)
+                    .attr("dy", ".25em")
+                    .text(species + " fauna in the " + location + " area in the year " + year)
+                    .attr("fill", "black")
+                    .style("font-size", 20)
+                    .style("font-family", "sans-serif")
           }
 
           // Onchange event for selecting species triggers changeCircular()
           $("#select_species").change(function() {
-            console.log(datacopy)
-            changeCircular(datacopy, "coastal", "2002", $("#select_species").val())
-          })
+            console.log(datacopy);
+            changeCircular(datacopy, $("#select_location").val(), slider.value, $("#select_species").val());
+          });
+
+          $("#select_location").change(function() {
+            changeCircular(datacopy, $("#select_location").val(), slider.value, $("#select_species").val());
+          });
+
+          // Show the value of the slider in the HTML page
+          let slider = document.getElementById("customRange1");
+          let output = document.getElementById("showVal");
+          output.innerHTML = slider.value;
+
+          // Changes the year
+          function changeYear(year) {
+
+            // Shows the year that is currently selected
+            output.innerHTML = slider.value;
+          };
+
+          // Changes the datapoint every time the slider is moved
+          slider.oninput = function() {
+            changeCircular(datacopy, $("#select_location").val(), slider.value, $("#select_species").val())
+            changeYear(this.value);
+            yearSelect = this.value
+          };
 
   });
 
-
-
-////////////////////////////* Total Line Chart *///////////////////////////////
+////////////////////////////* Total Line Chart *////////////////////////////////
 var json_data = $.getJSON("../data/new_totals.json", function(data) {
   var locationdata = data
   var data = data
@@ -514,7 +608,7 @@ var yAxis = d3.svg.axis()
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Temperature (ºF)");
+      .text("Index 1990");
 
     var city = svg.selectAll(".city")
       .data(cities)
@@ -632,12 +726,24 @@ var yAxis = d3.svg.axis()
             return "translate(" + mouse[0] + "," + pos.y +")";
           });
 });
+
+svg.append("text")
+  .attr("x", 20)
+  .attr("y", 0)
+  .attr("dy", ".25em")
+  .text("Overall fauna change in the " + location + " area")
+  .attr("fill", "black")
+  .style("font-size", 20)
+  .style("font-family", "sans-serif")
 }
 changeLine(locationdata, "coastal")
 
   // Onchange event for selecting species triggers changeCircular()
   $("#select_location").change(function() {
     changeLine(locationdata, $("#select_location").val())
+    console.log("gonna change circles")
   })
+
+
 
 });

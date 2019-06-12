@@ -16,3 +16,6 @@ Also created a horizontal bar chart for the total fauna increase or decrease per
 
 ## 07/06
 Created one big JSON file where all the increases and decreases for all individual species per location and per year are put together. Afterwards I integrated this JSON file with my circular bar plot. It is properly working.
+
+## 11/06
+Created two select elements, one select element to change the location that updates the total fauna change in a location, the other element to change the species to show the increase or decline for all species belonging to that group in a certain year. Created two update functions, changeCircle() and changeLine(). The former changes the circular bar plot whenever the user changes the species and the last one changes the line graph whenever the user changes location.

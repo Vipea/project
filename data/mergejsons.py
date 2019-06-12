@@ -17,10 +17,10 @@ for i in coastal:
     oosterschelde_value = oosterschelde[i]["Trend"]
     waddenzee_value = waddenzee[i]["Trend"]
     coastal[i] = []
-    coastal[i].append({"location": "coastal", "value": coastal_value - 100})
-    coastal[i].append({"location": "westerschelde", "value": westerschelde_value - 100})
-    coastal[i].append({"location": "oosterschelde", "value": oosterschelde_value - 100})
-    coastal[i].append({"location": "waddenzee", "value": waddenzee_value - 100})
+    coastal[i].append({"location": "coastal", "value": coastal_value})
+    coastal[i].append({"location": "westerschelde", "value": westerschelde_value})
+    coastal[i].append({"location": "oosterschelde", "value": oosterschelde_value})
+    coastal[i].append({"location": "waddenzee", "value": waddenzee_value})
 
 all_locations = coastal
 
