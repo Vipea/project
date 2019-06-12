@@ -1,6 +1,32 @@
-////////////////////////////* Circular bar plot *///////////////////////////////
+
+
 var json_data = $.getJSON("../data/allindividuals.json", function(data) {
+
+  // Show the value of the slider in the HTML page
+  let slider = document.getElementById("customRange1");
+  let output = document.getElementById("showVal");
+  output.innerHTML = slider.value;
+
+  d3.selectAll(".stackedbar").onclick = function(d) {
+        changeCircular(datacopy, $("#select_location").val(), d.x, $("#select_species").val());
+      }
+
+  // Changes the year
+  function changeYear(year) {
+
+    // Shows the year that is currently selected
+    output.innerHTML = slider.value;
+  };
+
+  // Changes the datapoint every time the slider is moved
+  slider.oninput = function() {
+    changeCircular(datacopy, $("#select_location").val(), slider.value, $("#select_species").val())
+    changeYear(this.value);
+    yearSelect = this.value
+  };
+
   var datacopy = data
+
   console.log(data)
   var data = data["waddenzee"]["1993"]["fish"];
 
@@ -28,7 +54,7 @@ var json_data = $.getJSON("../data/allindividuals.json", function(data) {
     // Y scale outer variable
     var y = d3v4.scaleRadial()
         .range([innerRadius, outerRadius])   // Domain will be define later.
-        .domain([0, 13000]); // Domain of Y is from 0 to the max seen in the data
+        .domain([0, 2000]); // Domain of Y is from 0 to the max seen in the data
 
     // Second barplot Scales
     var ybis = d3v4.scaleRadial()
@@ -41,7 +67,14 @@ var json_data = $.getJSON("../data/allindividuals.json", function(data) {
       .data(data)
       .enter()
       .append("path")
-        .attr("fill", "#69b3a2")
+        .attr("fill", function(d) {
+          if (d.value >= 100) {
+            return "#98FB98"
+          }
+          else {
+            return "#ff6961"
+          }
+        })
         .attr("class", "yo")
         .attr("d", d3v4.arc()     // imagine your doing a part of a donut plot
             .innerRadius(innerRadius)
@@ -70,14 +103,9 @@ var json_data = $.getJSON("../data/allindividuals.json", function(data) {
 
           // Function to change circular bars
           function changeCircular(data, location, year, species) {
-            console.log(data)
-            console.log(location)
-
-            console.log(species)
-            console.log(typeof year)
             data = data[location][year][species]
-            console.log(data)
 
+            console.log(data)
             // X scale: common for 2 data series
             var x = d3v4.scaleBand()
                 .range([0, 2 * Math.PI])    // X axis goes from 0 to 2pi = all around the circle. If I stop at 1Pi, it will be around a half circle
@@ -87,7 +115,7 @@ var json_data = $.getJSON("../data/allindividuals.json", function(data) {
             // Y scale outer variable
             var y = d3v4.scaleRadial()
                 .range([innerRadius, outerRadius])   // Domain will be define later.
-                .domain([0, 13000]); // Domain of Y is from 0 to the max seen in the data
+                .domain([0, 2000]); // Domain of Y is from 0 to the max seen in the data
 
 
             een = d3v4.selectAll(".yo")
@@ -117,7 +145,14 @@ var json_data = $.getJSON("../data/allindividuals.json", function(data) {
               .data(data)
               .enter()
               .append("path")
-                .attr("fill", "#69b3a2")
+              .attr("fill", function(d) {
+                if (d.value >= 100) {
+                  return "#98FB98"
+                }
+                else {
+                  return "#ff6961"
+                }
+              })
                 .attr("class", "yo")
                 .attr("d", d3v4.arc()     // imagine your doing a part of a donut plot
                     .innerRadius(innerRadius)
@@ -168,23 +203,6 @@ var json_data = $.getJSON("../data/allindividuals.json", function(data) {
             changeCircular(datacopy, $("#select_location").val(), slider.value, $("#select_species").val());
           });
 
-          // Show the value of the slider in the HTML page
-          let slider = document.getElementById("customRange1");
-          let output = document.getElementById("showVal");
-          output.innerHTML = slider.value;
 
-          // Changes the year
-          function changeYear(year) {
-
-            // Shows the year that is currently selected
-            output.innerHTML = slider.value;
-          };
-
-          // Changes the datapoint every time the slider is moved
-          slider.oninput = function() {
-            changeCircular(datacopy, $("#select_location").val(), slider.value, $("#select_species").val())
-            changeYear(this.value);
-            yearSelect = this.value
-          };
 
   });

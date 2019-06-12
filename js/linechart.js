@@ -1,3 +1,5 @@
+window.onload = function() {
+
 var json_data = $.getJSON("../data/new_totals.json", function(data) {
   var data = data
   changeLine(data, "coastal")
@@ -6,6 +8,12 @@ var json_data = $.getJSON("../data/new_totals.json", function(data) {
   $("#select_location").change(function() {
     changeLine(data, $("#select_location").val())
   })
+
+  d3.selectAll(".bar").on('click', function(d){
+    console.log(d.location)
+    changeLine(data, d.location)
+  })
+
 });
 
 function changeLine(data, location) {
@@ -220,4 +228,5 @@ function changeLine(data, location) {
     .attr("fill", "black")
     .style("font-size", 20)
     .style("font-family", "sans-serif");
+};
 };

@@ -89,6 +89,7 @@ function initializeMethods(data) {
     })
     .enter()
     .append("rect")
+    .attr("class", "stackedbar")
     .attr("x", function(d) {
       return x(d.x);
     })

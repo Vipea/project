@@ -9,6 +9,10 @@ var json_data = $.getJSON("../data/all_locations.json", function(data) {
   var initializedata = data["1990"]
   console.log(data)
 
+  d3.selectAll(".stackedbar").on("click", function(d) {
+        changeBars(locationdata, d.x)
+      })
+
   //set up svg using margin conventions - we'll need plenty of room on the left for labels
   var margin = {
       top: 15,
@@ -88,6 +92,10 @@ var json_data = $.getJSON("../data/all_locations.json", function(data) {
           return "#ff6961"
         }
       })
+      // .on('click', function(d){
+      //   console.log(d.location)
+      //   changeLine(data, d.location)
+      // })
 
   //add a value label to the right of each bar
   bars.append("text")
@@ -131,4 +139,5 @@ var json_data = $.getJSON("../data/all_locations.json", function(data) {
       slider.onchange = function() {
         changeBars(locationdata, slider.value)
       };
+
 });
