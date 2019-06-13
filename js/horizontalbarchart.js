@@ -1,6 +1,7 @@
 console.log(d3v4.version)
 console.log(d3.version)
 
+
 //* HORIZONTAL BARS *//*********************************************************
 var json_data = $.getJSON("../data/all_locations.json", function(data) {
   var data = data;
@@ -11,7 +12,9 @@ var json_data = $.getJSON("../data/all_locations.json", function(data) {
 
   d3.selectAll(".stackedbar").on("click", function(d) {
         changeBars(locationdata, d.x)
+        changeCircular(datacopy, $("#select_location").val(), d.x, $("#select_species").val());
       })
+
 
   //set up svg using margin conventions - we'll need plenty of room on the left for labels
   var margin = {
@@ -92,10 +95,11 @@ var json_data = $.getJSON("../data/all_locations.json", function(data) {
           return "#ff6961"
         }
       })
-      // .on('click', function(d){
-      //   console.log(d.location)
-      //   changeLine(data, d.location)
-      // })
+    .on('click', function(d){
+      console.log(d.location)
+      changeLine(linedata, d.location)
+      changeCircular(datacopy, d.location, slider.value, $("#select_species").val())
+    })
 
   //add a value label to the right of each bar
   bars.append("text")
@@ -138,6 +142,7 @@ var json_data = $.getJSON("../data/all_locations.json", function(data) {
       let slider = document.getElementById("customRange1");
       slider.onchange = function() {
         changeBars(locationdata, slider.value)
+        changeCircular(datacopy, $("#select_location").val(), slider.value, $("#select_species").val())
       };
 
 });

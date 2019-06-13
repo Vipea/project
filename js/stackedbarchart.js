@@ -1,3 +1,6 @@
+console.log("start stacked")
+
+
 var json_data = $.getJSON("../data/fishingmethods.json", function(data) {
   initializeMethods(data)
 });
@@ -99,8 +102,8 @@ function initializeMethods(data) {
     .attr("height", function(d) {
       return y(d.y0) - y(d.y0 + d.y);
     })
-    .attr("width", x.rangeBand())
-    .on("mouseover", function() {
+    .attr("width", x.rangeBand() - 1)
+    .on("mouseover", function(d) {
       tooltip.style("display", null);
     })
     .on("mouseout", function() {
@@ -156,6 +159,7 @@ function initializeMethods(data) {
   var tooltip = svg.append("g")
     .attr("class", "tooltip")
     .style("display", "none");
+
 
   tooltip.append("rect")
     .attr("width", 30)
