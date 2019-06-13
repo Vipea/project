@@ -1,9 +1,5 @@
-console.log("start stacked")
 
 
-var json_data = $.getJSON("../data/fishingmethods.json", function(data) {
-  initializeMethods(data)
-});
 
 function initializeMethods(data) {
 
@@ -158,14 +154,8 @@ function initializeMethods(data) {
   // Prep the tooltip bits, initial display is hidden
   var tooltip = svg.append("g")
     .attr("class", "tooltip")
-    .style("display", "none");
-
-
-  tooltip.append("rect")
-    .attr("width", 30)
-    .attr("height", 20)
-    .attr("fill", "white")
-    .style("opacity", 0.5);
+    .style("display", "none")
+    .style("opacity", 1);
 
   tooltip.append("text")
     .attr("x", 15)
@@ -173,4 +163,25 @@ function initializeMethods(data) {
     .style("text-anchor", "middle")
     .attr("font-size", "12px")
     .attr("font-weight", "bold");
-};
+
+    // Add title
+    svg.append("text")
+      .attr("x", 300)
+      .attr("y", 0)
+      .attr("dy", ".25em")
+      .text("Fishing methods")
+      .style("text-anchor", "middle")
+      .attr("fill", "black")
+      .style("font-size", 20)
+      .style("font-family", "sans-serif");
+
+      svg.append("text")
+        .attr("x", 300)
+        .attr("y", 20)
+        .attr("dy", ".25em")
+        .style("text-anchor", "middle")
+        .text("In million HP days")
+        .attr("fill", "black")
+        .style("font-size", 14)
+        .style("font-family", "sans-serif");
+  };

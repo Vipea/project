@@ -1,13 +1,13 @@
 
   function changeLine(data, location) {
     var margin = {
-        top: 20,
+        top: 50,
         right: 80,
         bottom: 30,
         left: 50
       },
       width = $("#faunatotal").width() - margin.left - margin.right,
-      height = $("#faunatotal").height() - 2* margin.top - 2*margin.bottom;
+      height = $("#faunatotal").height() - 2 * margin.top - 2 * margin.bottom;
 
       console.log(height)
 
@@ -42,8 +42,6 @@
       });
 
     var svg = d3.select("#faunatotal_linechart")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
       .attr("class", "totalline");
@@ -205,29 +203,13 @@
           });
       });
 
+    // Add title
     svg.append("text")
-      .attr("x", 20)
-      .attr("y", 0)
+      .attr("x", 0)
+      .attr("y", -30)
       .attr("dy", ".25em")
       .text("Overall fauna change in the " + location + " area")
       .attr("fill", "black")
       .style("font-size", 20)
       .style("font-family", "sans-serif");
   };
-
-var json_data = $.getJSON("../data/new_totals.json", function(data) {
-  var data = data
-  linedata=data
-
-
-  changeLine(data, "coastal")
-
-
-  // Onchange event for selecting species triggers changeCircular()
-  $("#select_location").change(function() {
-    changeLine(data, $("#select_location").val())
-  })
-
-
-
-});

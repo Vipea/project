@@ -54,3 +54,8 @@ html, body {
   fill: none;
   stroke: steelblue;
 }
+
+#faunatotal_linechart {
+  width: 100%;
+  height: 100%
+}

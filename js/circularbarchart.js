@@ -1,14 +1,14 @@
+function initializeBars(data, location, year, species) {
 
-
-function initializeBars(data) {
+data = data[location][year][species]
 
 // set the dimensions and margins of the graph
-var margin = {top: 100, right: 0, bottom: 0, left: 0},
+var margin = {top: 0, right: 0, bottom: 0, left: 0},
     width = $("#specieschange").width() - margin.left - margin.right,
     height = $("#specieschange").height() - margin.top - margin.bottom,
     innerRadius = 90,
     outerRadius = Math.min(width, height) / 2;   // the outerRadius goes from the middle of the SVG area to the border
-console.log(d3v4.select("#specieschange_circularbars"))
+
 // append the svg object
 var svg = d3v4.select("#specieschange_circularbars")
     .attr("width", width + margin.left + margin.right)
@@ -71,18 +71,27 @@ var svg = d3v4.select("#specieschange_circularbars")
         .style("font-size", "11px")
         .attr("alignment-baseline", "middle")
         .attr("class", "specieslabel")
-      }
+
+        // Set legend title
+        svg.append("text")
+          .attr("x", -200)
+          .attr("y", -170)
+          .attr("dy", ".25em")
+          .text(species + " fauna in the " + location + " area in " + year)
+          .attr("class", "circular_title")
+          .attr("fill", "black")
+          .style("font-size", 20)
+          .style("font-family", "sans-serif")
+      };
 
 // Function to change circular bars
 function changeCircular(data, location, year, species) {
   data = data[location][year][species]
-  var margin = {top: 100, right: 0, bottom: 0, left: 0},
+  var margin = {top: 0, right: 0, bottom: 0, left: 0},
       width = $("#specieschange").width() - margin.left - margin.right,
       height = $("#specieschange").height() - margin.top - margin.bottom,
       innerRadius = 90,
       outerRadius = Math.min(width, height) / 2;
-  console.log("height is now")
-  console.log(height)
   // X scale: common for 2 data series
   var x = d3v4.scaleBand()
       .range([0, 2 * Math.PI])    // X axis goes from 0 to 2pi = all around the circle. If I stop at 1Pi, it will be around a half circle
@@ -133,7 +142,6 @@ function changeCircular(data, location, year, species) {
           .padAngle(0.01)
           .padRadius(innerRadius))
 
-  console.log(data)
   // Add the labels
   svg.append("g")
       .selectAll("g")
@@ -152,45 +160,12 @@ function changeCircular(data, location, year, species) {
 
         // Set legend title
         svg.append("text")
-          .attr("x", -170)
-          .attr("y", -260)
+          .attr("x", -200)
+          .attr("y", -170)
           .attr("dy", ".25em")
-          .text(species + " fauna in the " + location + " area in the year " + year)
+          .text(species + " fauna in the " + location + " area in " + year)
           .attr("class", "circular_title")
           .attr("fill", "black")
           .style("font-size", 20)
           .style("font-family", "sans-serif")
-}
-
-window.onload = function() {
-  // Show the value of the slider in the HTML page
-  let slider = document.getElementById("customRange1");
-  let output = document.getElementById("showVal");
-  output.innerHTML = slider.value;
-
-
-//  Changes the datapoint every time the slider is moved
-  slider.oninput = function() {
-    output.innerHTML = slider.value
-    console.log(slider.value)
-  };
-}
-
-var json_data = $.getJSON("../data/allindividuals.json", function(data) {
-  console.log(data)
-  datacopy = data
-
-  initializeBars(data["waddenzee"]["1993"]["fish"])
-
-    /// deze twee in initialize
-    // Onchange event for selecting species triggers changeCircular()
-    $("#select_species").change(function() {
-      changeCircular(datacopy, $("#select_location").val(), $("#customRange1").val(), $("#select_species").val());
-    });
-
-    $("#select_location").change(function() {
-      changeCircular(datacopy, $("#select_location").val(), $("#customRange1").val(), $("#select_species").val());
-    });
-
-
-  });
+};
