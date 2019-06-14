@@ -1,4 +1,4 @@
-console.log(d3v4.version)
+console.log(d3v5.version)
 console.log(d3.version)
 
 function changeBars(locationdata, year) {
@@ -104,8 +104,10 @@ bars.append("text")
         return d.value - 100 + "%";
     });
 
+
+
     svg.append("path")
-                  .attr("d", " M 249 25 L 249 370 L 251 370 L 251 25 ")
+    .attr("d", " M 249 25 L 249 370 L 251 370 L 251 25 ")
     .attr("fill", "red")
     .attr("class", "divide")
 

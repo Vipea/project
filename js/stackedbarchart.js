@@ -106,10 +106,10 @@ function initializeMethods(data) {
       tooltip.style("display", "none");
     })
     .on("mousemove", function(d) {
-      var xPosition = d3.mouse(this)[0] - 15;
+      var xPosition = d3.mouse(this)[0] + 10;
       var yPosition = d3.mouse(this)[1] - 25;
       tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-      tooltip.select("text").text(d.y);
+      tooltip.select("text").text(d.y.toPrecision(2) + " million HP days");
     });
 
   // Draw legend
@@ -176,12 +176,23 @@ function initializeMethods(data) {
       .style("font-family", "sans-serif");
 
       svg.append("text")
-        .attr("x", 300)
-        .attr("y", 20)
+        .attr("x", 35)
+        .attr("y", 0)
         .attr("dy", ".25em")
         .style("text-anchor", "middle")
-        .text("In million HP days")
+        .text("million HP days")
         .attr("fill", "black")
         .style("font-size", 14)
         .style("font-family", "sans-serif");
+
+        // x axis label
+        svg.append("text")
+          .attr("x", 640)
+          .attr("y", 350)
+          .attr("dy", ".25em")
+          .style("text-anchor", "middle")
+          .text("Year")
+          .attr("fill", "black")
+          .style("font-size", 14)
+          .style("font-family", "sans-serif");
   };

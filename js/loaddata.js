@@ -1,7 +1,7 @@
-Promise.all([d3v4.json("../data/all_locations.json"),
-             d3v4.json("../data/allindividuals.json"),
-             d3v4.json("../data/new_totals.json"),
-             d3v4.json("../data/fishingmethods.json"),])
+Promise.all([d3v5.json("../data/all_locations.json"),
+             d3v5.json("../data/allindividuals.json"),
+             d3v5.json("../data/new_totals.json"),
+             d3v5.json("../data/fishingmethods.json"),])
   .then(
   function success(allData) {
     console.log(allData)
