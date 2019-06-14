@@ -26,7 +26,7 @@ var svg = d3v5.select("#specieschange_circularbars")
   // Y scale outer variable
   var y = d3v5.scaleRadial()
       .range([innerRadius, outerRadius])   // Domain will be define later.
-      .domain([0, 2000]); // Domain of Y is from 0 to the max seen in the data
+      .domain([0, 5000]); // Domain of Y is from 0 to the max seen in the data
 
   // Second barplot Scales
   var ybis = d3v5.scaleRadial()
@@ -81,21 +81,21 @@ var svg = d3v5.select("#specieschange_circularbars")
           });
 
 
-  // // Add the labels
-  // svg.append("g")
-  //     .selectAll("g")
-  //     .data(data)
-  //     .enter()
-  //     .append("g")
-  //       .attr("text-anchor", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
-  //       .attr("transform", function(d) { return "rotate(" + ((x(d.name) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")"+"translate(" + (y(d['value'])+10) + ",0)"; })
-  //       .attr("class", "speciesbar")
-  //     .append("text")
-  //       .text(function(d){return(d.name)})
-  //       .attr("transform", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
-  //       .style("font-size", "11px")
-  //       .attr("alignment-baseline", "middle")
-  //       .attr("class", "specieslabel")
+  // Add the labels
+  svg.append("g")
+      .selectAll("g")
+      .data(data)
+      .enter()
+      .append("g")
+        .attr("text-anchor", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
+        .attr("transform", function(d) { return "rotate(" + ((x(d.name) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")"+"translate(" + (y(d['value'])+10) + ",0)"; })
+        .attr("class", "speciesbar")
+      .append("text")
+        .text(function(d){return(d.name)})
+        .attr("transform", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
+        .style("font-size", "11px")
+        .attr("alignment-baseline", "middle")
+        .attr("class", "specieslabel")
 
         // Set legend title
         svg.append("text")
@@ -128,7 +128,7 @@ function changeCircular(data, location, year, species) {
   // Y scale outer variable
   var y = d3v5.scaleRadial()
       .range([innerRadius, outerRadius])   // Domain will be define later.
-      .domain([0, 2000]); // Domain of Y is from 0 to the max seen in the data
+      .domain([0, 5000]); // Domain of Y is from 0 to the max seen in the data
 
 
   een = d3v5.selectAll(".yo")
@@ -195,21 +195,21 @@ function changeCircular(data, location, year, species) {
           });
 
 
-  // // Add the labels
-  // svg.append("g")
-  //     .selectAll("g")
-  //     .data(data)
-  //     .enter()
-  //     .append("g")
-  //       .attr("text-anchor", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
-  //       .attr("transform", function(d) { return "rotate(" + ((x(d.name) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")"+"translate(" + (y(d['value'])+10) + ",0)"; })
-  //       .attr("class", "speciesbar")
-  //     .append("text")
-  //       .text(function(d){return(d.name)})
-  //       .attr("transform", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
-  //       .style("font-size", "11px")
-  //       .attr("alignment-baseline", "middle")
-  //       .attr("class", "specieslabel")
+  // Add the labels
+  svg.append("g")
+      .selectAll("g")
+      .data(data)
+      .enter()
+      .append("g")
+        .attr("text-anchor", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
+        .attr("transform", function(d) { return "rotate(" + ((x(d.name) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")"+"translate(" + (y(d['value'])+10) + ",0)"; })
+        .attr("class", "speciesbar")
+      .append("text")
+        .text(function(d){return(d.name)})
+        .attr("transform", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
+        .style("font-size", "11px")
+        .attr("alignment-baseline", "middle")
+        .attr("class", "specieslabel")
 
         // Set legend title
         svg.append("text")
