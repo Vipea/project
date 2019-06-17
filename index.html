@@ -15,6 +15,8 @@
     <meta charset="UTF-8">
     <title>Fishing methods and correlating fauna trends in the North Sea</title>
 
+    <script src="https://kit.fontawesome.com/62c09c1576.js"></script>
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -27,28 +29,45 @@
       <span id="showVal"></span>
     </div>
 
+
+    <div class="container-fluid" id= "text-methods">
+      <h3>
+        These are the fishing methods used in the North Sea since 1990. <br> Fishing methods have had enormous impacts on fauna throughout the North Sea. <br>Such as the Boomkor method
+        which scraped large amounts of species away from the ocean floor.<br> Click on one of the bars to see how it affected the fauna in multiple locations across the sea.
+    </h3>
+    </div>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-6" id="fishingmethods">
+        <div class="col-12" id="fishingmethods">
           <svg id="fishingmethods_stackedbars"></svg>
         </div>
-        <div class="col-6" id="faunachange">
+      </div>
+      </div>
+
+      <div class="container-fluid" id= "text-change">
+        <h3>
+          These horizontal bars show the percentual difference in overall fauna since 1990.<br>
+          Move the slider to explore the data.<br>
+          Click on a bar to view the overall fauna change for that location.
+      </h3>
+      </div>
+      <div class="container-fluid">
+        <div class="row">
+        <div class="col-12" id="faunachange">
           <svg id="faunachange_relativebars"></svg>
         </div>
       </div>
     </div>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-6" id="specieschange">
-          <select class="form-control" id="select_species">
-            <option value="fish">Fish</option>
-            <option value="bodem">Benthic Animals</option>
-            <option value="bird">Birds</option>
-          </select>
-          <svg id="specieschange_circularbars"></svg>
-        </div>
-        <div class="col-6" id="faunatotal">
+
+    <div class="container-fluid" id="text-total">
+      <h3 id="chacha">
+        This line chart shows the overall fauna change since 1990 in the <span id="total-location">coastal</span> area
+    </h3>
+    </div>
+        <div class="container-fluid">
+          <div class="row">
+        <div class="col-12" id="faunatotal">
           <select class="form-control" id="select_location">
             <option value="coastal">Coastal areas</option>
             <option value="oosterschelde">Oosterschelde</option>
@@ -56,9 +75,51 @@
             <option value="westerschelde">Westerschelde</option>
           </select>
           <svg id="faunatotal_linechart"></svg>
+          </div>
         </div>
       </div>
+          <div class="container-fluid" id="icons">
+          <div class="row">
+            <h3>
+              Choose of the animal groups to see the fauna change per species group
+          </h3>
+          <div class="col-4">
+          <i class="fas fa-crow" id="birdicon"></i> Birds
+        </div>
+
+          <div class="col-4">
+          <i class="fas fa-fish" id="fishicon"></i> Fish
+          </div>
+
+          <div class="col-4">
+          <i class="fas fa-spider" id="benthicicon"></i> Benthic animals
+          </div>
+        </div>
+
+
+        </div>
+
+
+
+    <div class="container-fluid" id= "text-circular">
+      <h3>
+
+    </h3>
     </div>
+    <div class="container-fluid" id=big-container>
+      <div class="row">
+        <div class="col-12" id="specieschange">
+
+          <svg id="specieschange_circularbars"></svg>
+
+          <select class="form-control" id="select_species">
+            <option value="fish">Fish</option>
+            <option value="bodem">Benthic Animals</option>
+            <option value="bird">Birds</option>
+          </select>
+        </div>
+        </div>
+        </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="http://d3js.org/d3.v5.min.js"></script>

@@ -3,11 +3,11 @@
     var margin = {
         top: 50,
         right: 80,
-        bottom: 30,
+        bottom: 80,
         left: 50
       },
       width = $("#faunatotal").width() - margin.left - margin.right,
-      height = $("#faunatotal").height() - 2 * margin.top - 2 * margin.bottom;
+      height = $("#faunatotal").height() - margin.top - margin.bottom;
 
       console.log(height)
 

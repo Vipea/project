@@ -28,3 +28,6 @@ Succesfully integrated all update functions. Solved all update function bugs.
 
 ## 14/06
 Found data for fishing methods between 1990 - 2000, and integrated it into my dataset. Added axes labels for the fishing methods graph. Started re-designing my visualizations to be more story-telling. At this point I have a fully working version with all data integrated.
+
+## 17/06
+Restructured my project to be in a story-telling way. Every graph now takes up a full page with interactive scroll links in between, now there is room for text between the graphs.

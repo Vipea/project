@@ -29,30 +29,36 @@ Promise.all([d3v5.json("../data/all_locations.json"),
       });
 
       $("#select_location").change(function() {
-        changeCircular(datacopy, $("#select_location").val(), $("#customRange1").val(), $("#select_species").val());
+        changeCircular(speciesdata, $("#select_location").val(), $("#customRange1").val(), $("#select_species").val());
       });
 
       d3.selectAll(".stackedbar").on("click", function(d) {
+          console.log("in de stacked on click")
             changeBars(locationdata, d.x)
             changeCircular(speciesdata, $("#select_location").val(), d.x, $("#select_species").val());
+            console.log("ja")
+            $('html,body').animate({
+              scrollTop: $("#text-change").offset().top},
+              'slow');
+
+              d3.selectAll(".bar").on("click", function(d) {
+                console.log("gonnascrell")
+                changeLine(totaldata, d.location)
+                changeCircular(speciesdata, d.location, $("#customRange1").val(), $("#select_species").val())
+                $('html,body').animate({
+                  scrollTop: $("#text-total").offset().top},
+                  'slow');
+                // $("total-location").html("This line chart shows the overall fauna change since 1990 in the " + d.location + " area").show()
+
+                //document.querySelector("#total-location).innerHTML = "jee"
+                $("#total-location").html(d.location)
+                console.log(d.location)
+              })
           })
 
       changeBars(locationdata, "1991")
 
-      d3.selectAll(".bar").on("click", function(d) {
-        changeLine(totaldata, d.location)
-        changeCircular(speciesdata, d.location, $("#customRange1").val(), $("#select_species").val())
-      })
 
-      d3.selectAll(".stackedbar").on("click", function(d) {
-            changeBars(locationdata, d.x)
-            changeCircular(speciesdata, $("#select_location").val(), d.x, $("#select_species").val());
-
-            d3.selectAll(".bar").on("click", function(d) {
-              changeLine(totaldata, d.location)
-              changeCircular(speciesdata, d.location, $("#customRange1").val(), $("#select_species").val())
-            })
-          })
 
           let slider = document.getElementById("customRange1");
           let valshow = document.getElementById("showVal");
@@ -63,12 +69,44 @@ Promise.all([d3v5.json("../data/all_locations.json"),
             document.getElementById("showVal").innerHTML = slider.value
 
             d3.selectAll(".bar").on("click", function(d) {
+              console.log("gonnascrell")
               changeLine(totaldata, d.location)
               changeCircular(speciesdata, d.location, $("#customRange1").val(), $("#select_species").val())
+              $('html,body').animate({
+                scrollTop: $("#text-total").offset().top},
+                'slow');
+              // $("total-location").html("This line chart shows the overall fauna change since 1990 in the " + d.location + " area").show()
+
+              //document.querySelector("#total-location).innerHTML = "jee"
+              $("#total-location").html(d.location)
+              console.log(d.location)
             })
+
+
+
           };
 
+          console.log("icon")
+        $("#birdicon").click(function() {
+          changeCircular(speciesdata, $("#select_location").val(), $("#customRange1").val(), "bird")
+          $('html,body').animate({
+            scrollTop: $("#text-circular").offset().top},
+            'slow');
+        })
 
+        $("#fishicon").click(function() {
+          changeCircular(speciesdata, $("#select_location").val(), $("#customRange1").val(), "fish")
+          $('html,body').animate({
+            scrollTop: $("#text-circular").offset().top},
+            'slow');
+        })
+
+        $("#benthicicon").click(function() {
+          changeCircular(speciesdata, $("#select_location").val(), $("#customRange1").val(), "bodem")
+          $('html,body').animate({
+            scrollTop: $("#text-circular").offset().top},
+            'slow');
+        })
 
 
 

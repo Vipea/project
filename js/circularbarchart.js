@@ -26,7 +26,7 @@ var svg = d3v5.select("#specieschange_circularbars")
   // Y scale outer variable
   var y = d3v5.scaleRadial()
       .range([innerRadius, outerRadius])   // Domain will be define later.
-      .domain([0, 5000]); // Domain of Y is from 0 to the max seen in the data
+      .domain([0, 10000]); // Domain of Y is from 0 to the max seen in the data
 
   // Second barplot Scales
   var ybis = d3v5.scaleRadial()
@@ -99,8 +99,8 @@ var svg = d3v5.select("#specieschange_circularbars")
 
         // Set legend title
         svg.append("text")
-          .attr("x", -250)
-          .attr("y", -170)
+          .attr("x", -600)
+          .attr("y", -250)
           .attr("dy", ".25em")
           .text(species + " fauna in the " + location + " area in " + year + " relative to 1990")
           .attr("class", "circular_title")
@@ -128,7 +128,7 @@ function changeCircular(data, location, year, species) {
   // Y scale outer variable
   var y = d3v5.scaleRadial()
       .range([innerRadius, outerRadius])   // Domain will be define later.
-      .domain([0, 5000]); // Domain of Y is from 0 to the max seen in the data
+      .domain([0, 10000]); // Domain of Y is from 0 to the max seen in the data
 
 
   een = d3v5.selectAll(".yo")
