@@ -34,7 +34,7 @@ Promise.all([d3v5.json("../data/all_locations.json"),
 
       d3.selectAll(".stackedbar").on("click", function(d) {
           console.log("in de stacked on click")
-            changeBars(locationdata, d.x)
+            updateBars(locationdata, d.x)
             changeCircular(speciesdata, $("#select_location").val(), d.x, $("#select_species").val());
             console.log("ja")
             $('html,body').animate({
@@ -58,13 +58,15 @@ Promise.all([d3v5.json("../data/all_locations.json"),
 
       changeBars(locationdata, "1991")
 
+      updateBars(locationdata, "1994")
+
 
 
           let slider = document.getElementById("customRange1");
           let valshow = document.getElementById("showVal");
           document.getElementById("showVal").innerHTML = slider.value
           slider.oninput = function() {
-            changeBars(locationdata, slider.value)
+            updateBars(locationdata, slider.value)
             changeCircular(speciesdata, $("#select_location").val(), slider.value, $("#select_species").val())
             document.getElementById("showVal").innerHTML = slider.value
 

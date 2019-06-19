@@ -35,14 +35,29 @@ for i in coastalbird:
 
     for species in coastalbird[i]:
         value = coastalbird[i][species]
+        try:
+            if value > 3000:
+                value = 3000
+        except:
+            KeyError
         bird_per_year.append({"name": species, "value": value})
 
     for species in coastalfish[i]:
         value = coastalfish[i][species]
+        try:
+            if value > 3000:
+                value = 3000
+        except:
+            KeyError
         fish_per_year.append({"name": species, "value": value})
 
     for species in coastalbodem[i]:
         value = coastalbodem[i][species]
+        try:
+            if value > 3000:
+                value = 3000
+        except:
+            KeyError
         bodem_per_year.append({"name": species, "value": value})
 
     coastalbird[i]["bird"] = bird_per_year
@@ -56,14 +71,29 @@ for i in westbird:
 
     for species in westbird[i]:
         value = westbird[i][species]
+        try:
+            if value > 3000:
+                value = 3000
+        except:
+            KeyError
         bird_per_year.append({"name": species, "value": value})
 
     for species in westfish[i]:
         value = westfish[i][species]
+        try:
+            if value > 3000:
+                value = 3000
+        except:
+            KeyError
         fish_per_year.append({"name": species, "value": value})
 
     for species in westbodem[i]:
         value = westbodem[i][species]
+        try:
+            if value > 3000:
+                value = 3000
+        except:
+            KeyError
         bodem_per_year.append({"name": species, "value": value})
 
     westbird[i]["bird"] = bird_per_year
@@ -77,14 +107,29 @@ for i in oostbird:
 
     for species in oostbird[i]:
         value = oostbird[i][species]
+        try:
+            if value > 3000:
+                value = 3000
+        except:
+            KeyError
         bird_per_year.append({"name": species, "value": value})
 
     for species in oostfish[i]:
         value = oostfish[i][species]
+        try:
+            if value > 3000:
+                value = 3000
+        except:
+            KeyError
         fish_per_year.append({"name": species, "value": value})
 
     for species in oostbodem[i]:
         value = oostbodem[i][species]
+        try:
+            if value > 3000:
+                value = 3000
+        except:
+            KeyError
         bodem_per_year.append({"name": species, "value": value})
 
     oostbird[i]["bird"] = bird_per_year
@@ -98,14 +143,29 @@ for i in waddenbird:
 
     for species in waddenbird[i]:
         value = waddenbird[i][species]
+        try:
+            if value > 3000:
+                value = 3000
+        except:
+            KeyError
         bird_per_year.append({"name": species, "value": value})
 
     for species in waddenfish[i]:
         value = waddenfish[i][species]
+        try:
+            if value > 3000:
+                value = 3000
+        except:
+            KeyError
         fish_per_year.append({"name": species, "value": value})
 
     for species in waddenbodem[i]:
         value = waddenbodem[i][species]
+        try:
+            if value > 3000:
+                value = 3000
+        except:
+            KeyError
         bodem_per_year.append({"name": species, "value": value})
 
     waddenbird[i]["bird"] = bird_per_year
@@ -119,5 +179,5 @@ allindividuals["westerschelde"] = westbird
 allindividuals["waddenzee"] = waddenbird
 
 
-with open('allindividuals.json', 'w') as f:
+with open('allindividuals1.json', 'w') as f:
     json.dump(allindividuals, f)

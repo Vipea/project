@@ -24,7 +24,7 @@ function changeBars(locationdata, year) {
   .attr("class", "horizontal")
 
   svg.selectAll(".horizontal").remove()
-  svg.selectAll(".bar").remove()
+  //svg.selectAll(".bar").remove()
   svg.selectAll(".overall_label").remove()
   svg.selectAll(".overall_title").remove()
   svg.select(".divide").remove()
@@ -55,6 +55,9 @@ var bars = svg.selectAll(".bar")
     .enter()
     .append("g")
 
+
+
+
 //append rects
 bars.append("rect")
     .attr("class", "bar")
@@ -64,14 +67,15 @@ bars.append("rect")
     .attr("height", y.rangeBand())
     .attr("x", function (d) {
       if (d.value - 100 >= 0) {
+        console.log(d.value)
         return 250
       }
       else {
+        console.log(d.value)
         return 250 - x(100 - d.value)
       }
     })
     .attr("width", function (d) {
-      console.log
         return x(Math.abs(100 - d.value))
     })
     .attr("fill", function(d) {
@@ -82,6 +86,7 @@ bars.append("rect")
         return "#ff6961"
       }
     })
+
 
 
 //add a value label to the right of each bar
@@ -121,4 +126,51 @@ bars.append("text")
       .style("font-size", 20)
       .style("font-family", "sans-serif")
       .attr("class", "overall_title");
+
+
+}
+
+function updateBars(locationdata, year) {
+  var x = d3v5.scaleLinear()
+      .range([0, 250])
+      .domain([0, 20]);
+  locationdata = locationdata[year]
+  horizontalBars = d3.selectAll(".bar")
+  .data(locationdata)
+  .attr("x", function (d) {
+    if (d.value - 100 >= 0) {
+      console.log(d.value)
+      return 250
     }
+    else {
+      console.log(d.value)
+      return 250 - x(100 - d.value)
+    }
+  })
+  .attr("width", function (d) {
+    console.log
+      return x(Math.abs(100 - d.value))
+  })
+  .attr("fill", function(d) {
+    if (d.value - 100 >= 0) {
+      return "#98FB98"
+    }
+    else {
+      return "#ff6961"
+    }
+  })
+
+  d3v5.selectAll(".overall_label")
+  .data(locationdata)
+  .attr("x", function (d) {
+    if (d.value - 100 >= 0) {
+      return 250 + x(Math.abs(100 - d.value)) + 10
+    }
+    else {
+      return 250 - x(100 - d.value) - 25
+    }
+  })
+  .text(function (d) {
+      return d.value - 100 + "%";
+  });
+}
