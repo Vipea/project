@@ -20,7 +20,7 @@ function initializeMethods(data) {
   var margin = {
     top: 20,
     right: 80,
-    bottom: 20,
+    bottom: 40,
     left: 20
   };
 
@@ -166,8 +166,9 @@ function initializeMethods(data) {
 
     // Add title
     svg.append("text")
-      .attr("x", 300)
-      .attr("y", 0)
+    .attr("transform",
+          "translate(" + (width/2) + " ," +
+                         0 + ")")
       .attr("dy", ".25em")
       .text("Fishing methods")
       .style("text-anchor", "middle")
@@ -185,10 +186,12 @@ function initializeMethods(data) {
         .style("font-size", 14)
         .style("font-family", "sans-serif");
 
+
         // x axis label
         svg.append("text")
-          .attr("x", 640)
-          .attr("y", 350)
+        .attr("transform",
+              "translate(" + (width/2) + " ," +
+                             (height + margin.top + 10) + ")")
           .attr("dy", ".25em")
           .style("text-anchor", "middle")
           .text("Year")

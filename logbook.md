@@ -31,3 +31,9 @@ Found data for fishing methods between 1990 - 2000, and integrated it into my da
 
 ## 17/06
 Restructured my project to be in a story-telling way. Every graph now takes up a full page with interactive scroll links in between, now there is room for text between the graphs.
+
+## 18/06
+Rewrote horizontal bars update functions so that it doesn't remove everything but instead resets the x and width coordinates of every bar. Also started to select and update the amount of circularbars, as well as the circularbars labels with exit() and remove()
+
+## 19/06
+Made circularbars update with exit and remove instead of deleting all elements. Made all graph titles interactive. Made HTML titles responsive. Changed SVG x and y coordinates to transform so that it is responsive.

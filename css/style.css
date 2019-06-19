@@ -1,6 +1,8 @@
 h3 {
   text-align: center;
   padding-top: 50px;
+  font-size: 2vw;
+  color: white;
 }
 
 html, body {
@@ -22,6 +24,10 @@ svg {
     stroke: none;
   }
 
+#fishingmethods_stackedbars {
+  width: 100%
+}
+
   .y .tick line {
     stroke: #ddd;
   }
@@ -34,12 +40,12 @@ html, body {
   position: fixed;
 }
 .container-fluid {
-  height: 70%;
+  height: 75%;
   background-color: #89cff0
 }
 
 #text-total {
-  height: 15%;
+  height: 16%;
 }
 
 #text-change {
@@ -47,7 +53,7 @@ html, body {
 }
 
 #text-methods {
-  height: 30%;
+  height: 25%;
 }
 
 #text-circular {
@@ -59,12 +65,13 @@ html, body {
 }
 
 #icons {
-  height: 15%
+  height: 9%
 }
 
 .row {
   height: 100%;
   width: 100%;
+  text-align: center;
 }
 
 /* Style the lines by removing the fill and applying a stroke */
@@ -104,4 +111,19 @@ html, body {
 
 #select_location {
   display: none;
+}
+
+#select_species {
+width: 30%;
+border-radius: 50px;border:1px solid #AAAAAA;
+margin-top: -50px;
+}
+
+
+.yo {
+  z-index: -1;
+}
+
+hr {
+  background-color: #0077be;
 }

@@ -1,5 +1,5 @@
 Promise.all([d3v5.json("../data/all_locations.json"),
-             d3v5.json("../data/allindividuals.json"),
+             d3v5.json("../data/allindividuals1.json"),
              d3v5.json("../data/new_totals.json"),
              d3v5.json("../data/fishingmethods.json"),])
   .then(
@@ -14,51 +14,49 @@ Promise.all([d3v5.json("../data/all_locations.json"),
 
     changeLine(totaldata, "coastal")
 
-    // Onchange event for selecting species triggers changeCircular()
+    //changeline(totaldata, "coastal")
+
+    // Onchange event for selecting species triggers updateCircular()
     $("#select_location").change(function() {
-      changeLine(totaldata, $("#select_location").val())
-      changeCircular(speciesdata, $("#select_location").val(), $("#customRange1").val(), $("#select_species").val());
+      updateLineHeight(totaldata, $("#select_location").val())
+      updateCircular(speciesdata, $("#select_location").val(), $("#customRange1").val(), $("#select_species").val());
     })
 
-    initializeBars(speciesdata, "waddenzee", "1993", "fish")
+    initializeBars(speciesdata, "coastal", "1991", "fish")
+    //updateCircular(speciesdata, "coastal", "2004", "bodem")
+
+    //updateCircular(speciesdata, "waddenzee", "1993", "bodem")
+
 
       /// deze twee in initialize
-      // Onchange event for selecting species triggers changeCircular()
+      // Onchange event for selecting species triggers updateCircular()
       $("#select_species").change(function() {
-        changeCircular(speciesdata, $("#select_location").val(), $("#customRange1").val(), $("#select_species").val());
+        updateCircular(speciesdata, $("#select_location").val(), $("#customRange1").val(), $("#select_species").val());
       });
 
       $("#select_location").change(function() {
-        changeCircular(speciesdata, $("#select_location").val(), $("#customRange1").val(), $("#select_species").val());
+        updateCircular(speciesdata, $("#select_location").val(), $("#customRange1").val(), $("#select_species").val());
       });
 
       d3.selectAll(".stackedbar").on("click", function(d) {
           console.log("in de stacked on click")
             updateBars(locationdata, d.x)
-            changeCircular(speciesdata, $("#select_location").val(), d.x, $("#select_species").val());
+            updateCircular(speciesdata, $("#select_location").val(), d.x, $("#select_species").val());
             console.log("ja")
             $('html,body').animate({
               scrollTop: $("#text-change").offset().top},
               'slow');
 
-              d3.selectAll(".bar").on("click", function(d) {
-                console.log("gonnascrell")
-                changeLine(totaldata, d.location)
-                changeCircular(speciesdata, d.location, $("#customRange1").val(), $("#select_species").val())
-                $('html,body').animate({
-                  scrollTop: $("#text-total").offset().top},
-                  'slow');
-                // $("total-location").html("This line chart shows the overall fauna change since 1990 in the " + d.location + " area").show()
+              $("#customRange1").val(d.x)
 
-                //document.querySelector("#total-location).innerHTML = "jee"
-                $("#total-location").html(d.location)
-                console.log(d.location)
-              })
+              document.getElementById("showVal").innerHTML = d.x
+
+
           })
 
-      changeBars(locationdata, "1991")
 
-      updateBars(locationdata, "1994")
+
+      changeBars(locationdata, "1991")
 
 
 
@@ -67,47 +65,54 @@ Promise.all([d3v5.json("../data/all_locations.json"),
           document.getElementById("showVal").innerHTML = slider.value
           slider.oninput = function() {
             updateBars(locationdata, slider.value)
-            changeCircular(speciesdata, $("#select_location").val(), slider.value, $("#select_species").val())
+            updateCircular(speciesdata, $("#select_location").val(), slider.value, $("#select_species").val())
             document.getElementById("showVal").innerHTML = slider.value
 
-            d3.selectAll(".bar").on("click", function(d) {
-              console.log("gonnascrell")
-              changeLine(totaldata, d.location)
-              changeCircular(speciesdata, d.location, $("#customRange1").val(), $("#select_species").val())
-              $('html,body').animate({
-                scrollTop: $("#text-total").offset().top},
-                'slow');
-              // $("total-location").html("This line chart shows the overall fauna change since 1990 in the " + d.location + " area").show()
 
-              //document.querySelector("#total-location).innerHTML = "jee"
-              $("#total-location").html(d.location)
-              console.log(d.location)
-            })
 
 
 
           };
 
+          console.log("klikie")
+          d3.selectAll(".bar").on("click", function(d) {
+            console.log("gonnascrell")
+            updateLineHeight(totaldata, d.location)
+            updateCircular(speciesdata, d.location, $("#customRange1").val(), $("#select_species").val())
+            $('html,body').animate({
+              scrollTop: $("#text-total").offset().top},
+              'slow');
+            // $("total-location").html("This line chart shows the overall fauna change since 1990 in the " + d.location + " area").show()
+
+            //document.querySelector("#total-location).innerHTML = "jee"
+            $("#total-location").html(d.location)
+            $("#individualslocation").html(d.location)
+            console.log(d.location)
+          })
+
           console.log("icon")
         $("#birdicon").click(function() {
-          changeCircular(speciesdata, $("#select_location").val(), $("#customRange1").val(), "bird")
+          updateCircular(speciesdata, $("#select_location").val(), $("#customRange1").val(), "bird")
           $('html,body').animate({
             scrollTop: $("#text-circular").offset().top},
             'slow');
+            $("#select_species").val("bird")
         })
 
         $("#fishicon").click(function() {
-          changeCircular(speciesdata, $("#select_location").val(), $("#customRange1").val(), "fish")
+          updateCircular(speciesdata, $("#select_location").val(), $("#customRange1").val(), "fish")
           $('html,body').animate({
             scrollTop: $("#text-circular").offset().top},
             'slow');
+            $("#select_species").val("fish")
         })
 
         $("#benthicicon").click(function() {
-          changeCircular(speciesdata, $("#select_location").val(), $("#customRange1").val(), "bodem")
+          updateCircular(speciesdata, $("#select_location").val(), $("#customRange1").val(), "bodem")
           $('html,body').animate({
             scrollTop: $("#text-circular").offset().top},
             'slow');
+            $("#select_species").val("bodem")
         })
 
 

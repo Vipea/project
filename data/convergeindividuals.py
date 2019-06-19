@@ -53,6 +53,8 @@ for i in coastalbird:
 
     for species in coastalbodem[i]:
         value = coastalbodem[i][species]
+        if len(species) > 30:
+            species = species[:30] + ".."
         try:
             if value > 3000:
                 value = 3000
@@ -89,6 +91,8 @@ for i in westbird:
 
     for species in westbodem[i]:
         value = westbodem[i][species]
+        if len(species) > 30:
+            species = species[:30] + ".."
         try:
             if value > 3000:
                 value = 3000
@@ -125,6 +129,8 @@ for i in oostbird:
 
     for species in oostbodem[i]:
         value = oostbodem[i][species]
+        if len(species) > 30:
+            species = species[:30] + ".."
         try:
             if value > 3000:
                 value = 3000
@@ -161,6 +167,8 @@ for i in waddenbird:
 
     for species in waddenbodem[i]:
         value = waddenbodem[i][species]
+        if len(species) > 30:
+            species = species[:30] + ".."
         try:
             if value > 3000:
                 value = 3000

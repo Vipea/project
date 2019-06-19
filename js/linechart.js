@@ -1,5 +1,6 @@
 
   function changeLine(data, location) {
+    var kariboe = data[location]
     var margin = {
         top: 50,
         right: 80,
@@ -31,7 +32,6 @@
 
     d3.select(".totalline").remove()
     data = data[location]
-    console.log(data)
     var line = d3.svg.line()
       .interpolate("basis")
       .x(function(d) {
@@ -213,3 +213,77 @@
       .style("font-size", 20)
       .style("font-family", "sans-serif");
   };
+
+
+function updateLineHeight(data, location) {
+
+  var margin = {
+      top: 50,
+      right: 80,
+      bottom: 80,
+      left: 50
+    },
+    width = $("#faunatotal").width() - margin.left - margin.right,
+    height = $("#faunatotal").height() - margin.top - margin.bottom;
+  var color = d3.scale.category10();
+
+
+data=data[location]
+
+var x = d3.time.scale()
+  .range([0, width]);
+
+var y = d3.scale.linear()
+  .range([height, 0]);
+
+var line = d3.svg.line()
+  .interpolate("basis")
+  .x(function(d) {
+    return x(d.date);
+  })
+  .y(function(d) {
+    return y(d.temperature);
+  });
+
+  color.domain(d3.keys(data[0]).filter(function(key) {
+    return key !== "date";
+  }));
+
+  data.forEach(function(d) {
+    d.date = d.date;
+  });
+
+var cities = color.domain().map(function(name) {
+  return {
+    name: name,
+    values: data.map(function(d) {
+      return {
+        date: d.date,
+        temperature: +d[name]
+      };
+    })
+  };
+});
+
+let nieuweline = d3v5.select(".line")
+.attr("d", function(d) {
+  return line(d.values);
+})
+
+
+
+}
+
+  // var city = svg.selectAll(".city")
+  //   .data(cities)
+  //   .enter().append("g")
+  //   .attr("class", "city");
+  //
+  // city.append("path")
+  //   .attr("class", "line")
+  //   .attr("d", function(d) {
+  //     return line(d.values);
+  //   })
+  //   .style("stroke", function(d) {
+  //     return color(d.name);
+  //   });

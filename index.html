@@ -17,9 +17,9 @@
 
     <script src="https://kit.fontawesome.com/62c09c1576.js"></script>
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
   </head>
 
   <body>
@@ -32,8 +32,7 @@
 
     <div class="container-fluid" id= "text-methods">
       <h3>
-        These are the fishing methods used in the North Sea since 1990. <br> Fishing methods have had enormous impacts on fauna throughout the North Sea. <br>Such as the Boomkor method
-        which scraped large amounts of species away from the ocean floor.<br> Click on one of the bars to see how it affected the fauna in multiple locations across the sea.
+        This interactive visualization shows the influence of fishing methods on life in the North Sea<br>Click on one of the bars to see how well the fauna was doing in that year
     </h3>
     </div>
     <div class="container-fluid">
@@ -43,6 +42,8 @@
         </div>
       </div>
       </div>
+
+      <hr>
 
       <div class="container-fluid" id= "text-change">
         <h3>
@@ -59,10 +60,12 @@
       </div>
     </div>
 
+<hr>
 
     <div class="container-fluid" id="text-total">
       <h3 id="chacha">
-        This line chart shows the overall fauna change since 1990 in the <span id="total-location">coastal</span> area
+        This line chart shows the overall fauna change since 1990 in the <span id="total-location">coastal</span> area<br>
+        Click on one of the species groups to see how those animal species changes over time
     </h3>
     </div>
         <div class="container-fluid">
@@ -80,31 +83,36 @@
       </div>
           <div class="container-fluid" id="icons">
           <div class="row">
-            <h3>
-              Choose of the animal groups to see the fauna change per species group
-          </h3>
+
           <div class="col-4">
           <i class="fas fa-crow" id="birdicon"></i> Birds
-        </div>
+          </div>
 
           <div class="col-4">
           <i class="fas fa-fish" id="fishicon"></i> Fish
           </div>
 
           <div class="col-4">
-          <i class="fas fa-spider" id="benthicicon"></i> Benthic animals
+          <i class="fas fa-spider" id="benthicicon"></i> Benthic
           </div>
         </div>
 
 
         </div>
 
+        <hr>
+
 
 
     <div class="container-fluid" id= "text-circular">
       <h3>
+This circular barplot shows the change per individual species in the <span id="individualslocation">coastal</span> area
+<br>
+Move the slider or choose another species to explore the data
+<br>
 
     </h3>
+
     </div>
     <div class="container-fluid" id=big-container>
       <div class="row">
@@ -119,6 +127,7 @@
           </select>
         </div>
         </div>
+
         </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
