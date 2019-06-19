@@ -31,9 +31,8 @@
       .orient("left");
 
     d3.select(".totalline").remove()
-    data = data[location]
-    var line = d3.svg.line()
-      .interpolate("basis")
+    var data = data[location]
+    var line = d3v5.line()
       .x(function(d) {
         return x(d.date);
       })
@@ -98,7 +97,7 @@
       .style("text-anchor", "end")
       .text("Index 1990");
 
-    var city = svg.selectAll(".city")
+      var city = svg.selectAll(".city")
       .data(cities)
       .enter().append("g")
       .attr("class", "city");
@@ -106,6 +105,7 @@
     city.append("path")
       .attr("class", "line")
       .attr("d", function(d) {
+        console.log(d.values)
         return line(d.values);
       })
       .style("stroke", function(d) {
@@ -228,7 +228,11 @@ function updateLineHeight(data, location) {
   var color = d3.scale.category10();
 
 
-data=data[location]
+  color.domain(d3.keys(data[0]).filter(function(key) {
+    return key !== "date";
+  }));
+
+
 
 var x = d3.time.scale()
   .range([0, width]);
@@ -236,8 +240,14 @@ var x = d3.time.scale()
 var y = d3.scale.linear()
   .range([height, 0]);
 
-var line = d3.svg.line()
-  .interpolate("basis")
+
+var data=data[location]
+
+data.forEach(function(d) {
+  d.date = d.date;
+});
+var line = d3v5.line()
+.curve(d3v5.curveCardinal)
   .x(function(d) {
     return x(d.date);
   })
@@ -257,6 +267,7 @@ var cities = color.domain().map(function(name) {
   return {
     name: name,
     values: data.map(function(d) {
+      console.log("enhierdan")
       return {
         date: d.date,
         temperature: +d[name]
@@ -265,10 +276,56 @@ var cities = color.domain().map(function(name) {
   };
 });
 
-let nieuweline = d3v5.select(".line")
+x.domain(d3.extent(data, function(d) {
+  return d.date;
+}));
+
+y.domain([
+  d3.min(cities, function(c) {
+    return d3.min(c.values, function(v) {
+      return v.temperature;
+    });
+  }),
+  d3.max(cities, function(c) {
+    return d3.max(c.values, function(v) {
+      return v.temperature;
+    });
+  })
+]);
+
+
+var nieuwelijn = d3v5.select(".line")
+.data(cities)
+.transition()
+.duration(2000)
 .attr("d", function(d) {
+  console.log(line(d.values))
   return line(d.values);
 })
+.style("stroke", function(d) {
+  return color(d.name);
+});
+
+
+
+
+// d3v5.select(".city")
+// .remove()
+//
+// var city = d3v5.select(".totalline").selectAll(".city")
+// .data(cities)
+// .enter().append("g")
+// .attr("class", "city");
+//
+// city.append("path")
+// .attr("class", "line")
+// .attr("d", function(d) {
+//   console.log(d.values)
+//   return line(d.values);
+// })
+// .style("stroke", function(d) {
+//   return color(d.name);
+// });
 
 
 

@@ -18,6 +18,7 @@ Promise.all([d3v5.json("../data/all_locations.json"),
 
     // Onchange event for selecting species triggers updateCircular()
     $("#select_location").change(function() {
+      console.log("word dit ooit getriggerd?")
       updateLineHeight(totaldata, $("#select_location").val())
       updateCircular(speciesdata, $("#select_location").val(), $("#customRange1").val(), $("#select_species").val());
     })
