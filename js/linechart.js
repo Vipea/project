@@ -12,10 +12,14 @@
 
       console.log(height)
 
-    var parseDate = d3.time.format("%Y%m%d").parse;
+    //var parseDate = d3.time.format("%Y%m%d").parse;
 
-    var x = d3.time.scale()
+    var x = d3.scale.linear()
       .range([0, width]);
+
+      var xScale = d3v5.scaleLinear()
+        .domain([1990, 2015]) // input
+        .range([0, width]); // output
 
     var y = d3.scale.linear()
       .range([height, 0]);
@@ -26,6 +30,7 @@
       .scale(x)
       .orient("bottom");
 
+
     var yAxis = d3.svg.axis()
       .scale(y)
       .orient("left");
@@ -33,6 +38,7 @@
     d3.select(".totalline").remove()
     var data = data[location]
     var line = d3v5.line()
+    .curve(d3v5.curveCardinal)
       .x(function(d) {
         return x(d.date);
       })
@@ -66,8 +72,10 @@
     });
 
     x.domain(d3.extent(data, function(d) {
+      console.log(d.date)
       return d.date;
     }));
+
 
     y.domain([
       d3.min(cities, function(c) {
@@ -82,10 +90,11 @@
       })
     ]);
 
+
     svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
+      .call(xAxis)
 
     svg.append("g")
       .attr("class", "y axis")
