@@ -94,7 +94,8 @@
     svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
-      .call(xAxis)
+      .call(xAxis
+        .tickFormat(d3.format("")));
 
     svg.append("g")
       .attr("class", "y axis")

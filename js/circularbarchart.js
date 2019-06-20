@@ -1,10 +1,11 @@
 function initializeBars(data, location, year, species) {
 
 
+
 data = data[location][year][species]
 
 // set the dimensions and margins of the graph
-var margin = {top: 80, right: 0, bottom: 0, left: 0},
+var margin = {top: 0, right: 0, bottom: 0, left: 0},
     width = $("#specieschange").width() - margin.left - margin.right,
     height = $("#specieschange").height() - margin.top - margin.bottom,
     innerRadius = 90,
@@ -170,6 +171,10 @@ console.log(tooltip)
 //
 var enter = nieuwedingen
   .enter().append("path")
+
+
+
+  enter
   .attr("d", d3v5.arc()     // imagine your doing a part of a donut plot
       .innerRadius(innerRadius)
       .outerRadius(function(d) {

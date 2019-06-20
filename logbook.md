@@ -37,3 +37,9 @@ Rewrote horizontal bars update functions so that it doesn't remove everything bu
 
 ## 19/06
 Made circularbars update with exit and remove instead of deleting all elements. Made all graph titles interactive. Made HTML titles responsive. Changed SVG x and y coordinates to transform so that it is responsive.
+
+## 20/06
+tooltip before circularbars
+circulartitle repositioning
+styled slider
+changed d3 to d3v5

@@ -1,7 +1,7 @@
 h3 {
   text-align: center;
   padding-top: 1em;
-  font-size: 2vw;
+  font-size: 1.7vw;
   color: white;
   line-height: 1.6;
 }
@@ -39,6 +39,7 @@ input[type=range]::-webkit-slider-runnable-track {
   border-color: steelblue;
   box-shadow: 5px 5px 5px steelblue, 0px 0px 1px steelblue;
   background: #89cff0;
+  opacity: 0.8;
 }
 
 #fishingmethods_stackedbars {
@@ -50,6 +51,7 @@ input[type=range]::-webkit-slider-runnable-track {
   padding-right: 5em;
   padding-top: 0.9em;
   position: fixed;
+  z-index: 1;
 }
 
 #showVal {
@@ -69,7 +71,8 @@ html, body {
   height: 100%;
 }
 .container {
-  position: fixed;
+  height: 75%;
+  background-color: #89cff0
 }
 .container-fluid {
   height: 75%;
@@ -92,12 +95,24 @@ html, body {
   height: 10%;
 }
 
+#specieschange_circularbars {
+  display: flex;
+  position: absolute;
+}
+
+#specieschange {
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  position: relative;
+}
+
 #big-container {
   height: 90%;
 }
 
 #icons {
-  height: 9%
+  height: 9%;
 }
 
 .row {
@@ -146,15 +161,26 @@ html, body {
 }
 
 #select_species {
-width: 30%;
+margin-bottom: -200px;
+width: 12%;
 border-radius: 50px;border:1px solid #AAAAAA;
-margin-top: -50px;
+position: absolute;
 background-color: #89cff0;
 color: white;
 border-color: blue;
-font-size: 20px;
+border-style: none;
+font-size: 1.5em;
 font-weight: bold;
 text-align-last:center;
+}
+
+
+select {
+   -o-appearance: none;
+   -ms-appearance: none;
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
 }
 
 
