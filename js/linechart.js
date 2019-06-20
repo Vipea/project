@@ -219,6 +219,7 @@
       .attr("dy", ".25em")
       .text("Overall fauna change in the " + location + " area")
       .attr("fill", "black")
+      .attr("id", "lineTitle")
       .style("font-size", 20)
       .style("font-family", "sans-serif");
   };
@@ -315,7 +316,8 @@ var nieuwelijn = d3v5.select(".line")
   return color(d.name);
 });
 
-
+d3v5.select("#lineTitle")
+.text("Overall fauna change in the " + location + " area")
 
 
 // d3v5.select(".city")

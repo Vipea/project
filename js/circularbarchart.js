@@ -34,17 +34,7 @@ var svg = d3v5.select("#specieschange_circularbars")
       .range([innerRadius, 5])   // Domain will be defined later.
       .domain([0, 13000]);
 
-      var tooltip = svg.append("g")
-        .attr("class", "tooltip")
-        .style("display", "none")
-        .style("opacity", 1);
 
-      tooltip.append("text")
-        .attr("x", 15)
-        .attr("dy", "1.2em")
-        .style("text-anchor", "middle")
-        .attr("font-size", "12px")
-        .attr("font-weight", "bold");
 
   // Add the bars
   svg.append("g")
@@ -101,17 +91,30 @@ var svg = d3v5.select("#specieschange_circularbars")
         .attr("class", "specieslabel")
 
         // Set legend title
-        svg.append("text")
-        .attr("transform",
-            "translate(" + (-width/3.3) + " ," +
-                           -height/2 + ")")
+        d3v5.select("#specieschange_circularbars").append("text")
+        // .attr("transform",
+        //     "translate(" + (-width/3.3) + " ," +
+        //                    -height/2 + ")")
+                           .attr("x", 0)
+                           .attr("y", 70)
           .attr("dy", ".25em")
-          .style("text-anchor", "middle")
           .text(species.charAt(0).toUpperCase() + species.slice(1) + " fauna in the " + location + " area in " + year + " relative to 1990")
           .attr("class", "circular_title")
           .attr("fill", "black")
           .style("font-size", 20)
           .style("font-family", "sans-serif")
+
+          tooltip = svg.append("g")
+            .attr("class", "tooltip")
+            .style("display", "none")
+            .style("opacity", 1);
+
+          tooltip.append("text")
+            .attr("x", 15)
+            .attr("dy", "1.2em")
+            .style("text-anchor", "middle")
+            .attr("font-size", "12px")
+            .attr("font-weight", "bold");
       };
 
 
@@ -158,7 +161,7 @@ var nieuwedingen = d3v5.select(".barg")
 
 console.log(nieuwedingen)
 
-var tooltip = d3v5.select(".tooltip")
+//var tooltip = d3v5.select(".tooltip")
 
 console.log(tooltip)
 

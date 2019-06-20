@@ -39,7 +39,7 @@ Promise.all([d3v5.json("../data/all_locations.json"),
         updateCircular(speciesdata, $("#select_location").val(), $("#customRange1").val(), $("#select_species").val());
       });
 
-      d3.selectAll(".stackedbar").on("click", function(d) {
+      d3v5.selectAll(".stackedbar").on("click", function(d) {
           console.log("in de stacked on click")
             updateBars(locationdata, d.x)
             updateCircular(speciesdata, $("#select_location").val(), d.x, $("#select_species").val());
@@ -76,8 +76,43 @@ Promise.all([d3v5.json("../data/all_locations.json"),
           };
 
           console.log("klikie")
-          d3.selectAll(".bar").on("click", function(d) {
+          d3v5.selectAll(".bar").on("click", function(d) {
             console.log("gonnascrell")
+            updateLineHeight(totaldata, d.location)
+            updateCircular(speciesdata, d.location, $("#customRange1").val(), $("#select_species").val())
+            $('html,body').animate({
+              scrollTop: $("#text-total").offset().top},
+              'slow');
+            // $("total-location").html("This line chart shows the overall fauna change since 1990 in the " + d.location + " area").show()
+
+            //document.querySelector("#total-location).innerHTML = "jee"
+            $("#total-location").html(d.location)
+            $("#individualslocation").html(d.location)
+            console.log(d.location)
+          })
+
+          console.log("klikie")
+          d3v5.select("#faunachange_relativebars").selectAll(".tick").on("click", function(d) {
+            console.log(d)
+            console.log("gonnascrell")
+            updateLineHeight(totaldata, d)
+            updateCircular(speciesdata, d, $("#customRange1").val(), $("#select_species").val())
+            $('html,body').animate({
+              scrollTop: $("#text-total").offset().top},
+              'slow');
+            // $("total-location").html("This line chart shows the overall fauna change since 1990 in the " + d.location + " area").show()
+
+            //document.querySelector("#total-location).innerHTML = "jee"
+            $("#total-location").html(d)
+            $("#individualslocation").html(d)
+          })
+
+
+
+          d3v5.selectAll(".overall_label")
+          .on("click", function(d) {
+            console.log(d.location)
+
             updateLineHeight(totaldata, d.location)
             updateCircular(speciesdata, d.location, $("#customRange1").val(), $("#select_species").val())
             $('html,body').animate({

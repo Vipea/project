@@ -27,7 +27,7 @@ function initializeMethods(data) {
   var width = $("#fishingmethods").width() - margin.left - margin.right,
     height = $("#fishingmethods").height() - margin.top - margin.bottom;
 
-  var svg = d3.select("#fishingmethods_stackedbars")
+  var svg = d3v5.select("#fishingmethods_stackedbars")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -106,8 +106,8 @@ function initializeMethods(data) {
       tooltip.style("display", "none");
     })
     .on("mousemove", function(d) {
-      var xPosition = d3.mouse(this)[0] + 10;
-      var yPosition = d3.mouse(this)[1] - 25;
+      var xPosition = d3v5.mouse(this)[0] + 10;
+      var yPosition = d3v5.mouse(this)[1] - 25;
       tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
       tooltip.select("text").text(d.y.toPrecision(2) + " million HP days");
     });

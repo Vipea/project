@@ -1,10 +1,7 @@
-console.log(d3v5.version)
-console.log(d3.version)
-
 function changeBars(locationdata, year) {
   locationdata = locationdata[year]
 
-  svg = d3.select("#faunachange_relativebars")
+  svg = d3v5.select("#faunachange_relativebars")
   svg.selectAll(".horizontal").remove()
 
   var margin = {
@@ -110,6 +107,9 @@ bars.append("text")
     })
     .text(function (d) {
         return d.value - 100 + "%";
+    })
+    .attr("id", function(d) {
+      return d.location
     });
 
 
@@ -149,7 +149,7 @@ function updateBars(locationdata, year) {
       .range([0, 250])
       .domain([0, 20]);
   locationdata = locationdata[year]
-  horizontalBars = d3.selectAll(".bar")
+  horizontalBars = d3v5.selectAll(".bar")
   .data(locationdata)
   .transition()
   .duration(100)
