@@ -39,7 +39,8 @@ Rewrote horizontal bars update functions so that it doesn't remove everything bu
 Made circularbars update with exit and remove instead of deleting all elements. Made all graph titles interactive. Made HTML titles responsive. Changed SVG x and y coordinates to transform so that it is responsive.
 
 ## 20/06
-tooltip before circularbars
-circulartitle repositioning
-styled slider
-changed d3 to d3v5
+Fixed tooltip bug to display in front of bars.
+Repositioned title to be more responsive.
+Styled slider, brought it to the front and made it transparent.
+Changed some d3 functions to d3v5.
+Centred select dropdown menu in the circular bar chart.
