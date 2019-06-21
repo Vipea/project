@@ -1,3 +1,26 @@
+/*
+
+CSS file that styles the fishing methods data visualization project
+
+Name: Max Frings
+
+Student number: 10544429
+
+Course: Programmeerproject 2018/2019 (Semester 2)
+
+Sources: https://www.clo.nl/indicatoren/nl0587-visserijtechnieken
+https://www.clo.nl/indicatoren/nl1599-fauna-westerschelde
+https://www.clo.nl/indicatoren/nl1598-fauna-oosterschelde
+https://www.clo.nl/indicatoren/nl1597-fauna-wadden
+https://www.clo.nl/indicatoren/nl1596-fauna-noordzee-kustzone
+http://edepot.wur.nl/284011 (table 2.6)
+
+This file is part of a data visualization project in which the impact of fishing
+methods in the past 25 years on the fauna in different locations in the
+North Sea is shown.
+
+*/
+
 h3 {
   text-align: center;
   padding-top: 1em;

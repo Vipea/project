@@ -1,41 +1,70 @@
-function initializeBars(data, location, year, species) {
+/*
 
+Creates and updates the circular bar chart that shows the change per species
 
+Name: Max Frings
 
-data = data[location][year][species]
+Student number: 10544429
 
-// set the dimensions and margins of the graph
-var margin = {top: 0, right: 0, bottom: 0, left: 0},
+Course: Programmeerproject 2018/2019 (Semester 2)
+
+Sources: https://www.clo.nl/indicatoren/nl0587-visserijtechnieken
+https://www.clo.nl/indicatoren/nl1599-fauna-westerschelde
+https://www.clo.nl/indicatoren/nl1598-fauna-oosterschelde
+https://www.clo.nl/indicatoren/nl1597-fauna-wadden
+https://www.clo.nl/indicatoren/nl1596-fauna-noordzee-kustzone
+http://edepot.wur.nl/284011 (tabel 2.6)
+
+This file is part of a data visualization project in which the impact of fishing
+methods in the past 25 years on the fauna in different locations in the
+North Sea is shown.
+
+*/
+
+function initializeBars(circulardata, location, year, species) {
+
+  // Set data
+  const data = circulardata[location][year][species]
+
+  // Set the dimensions and margins of the graph
+  const margin = {
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0
+    },
     width = $("#specieschange").width() - margin.left - margin.right,
     height = $("#specieschange").height() - margin.top - margin.bottom,
     innerRadius = 90,
-    outerRadius = Math.min(width, height) / 2;   // the outerRadius goes from the middle of the SVG area to the border
+    outerRadius = Math.min(width, height) / 2;
 
-// append the svg object
-var svg = d3v5.select("#specieschange_circularbars")
+  // Append the svg object
+  const svg = d3v5.select("#specieschange_circularbars")
     .attr("width", width + margin.left + margin.right)
     .attr("class", "circlesvg")
-  .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")")
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + (width / 2 + margin.left) + "," +
+                                  (height / 2 + margin.top) + ")")
     .attr("class", "theg")
-  // X scale: common for 2 data series
-  var x = d3v5.scaleBand()
-      .range([0, 2 * Math.PI])    // X axis goes from 0 to 2pi = all around the circle. If I stop at 1Pi, it will be around a half circle
-      .align(0)                  // This does nothing
-      .domain(data.map(function(d) { return d.name; })); // The domain of the X axis is the list of states.
 
-  // Y scale outer variable
-  var y = d3v5.scaleRadial()
-      .range([innerRadius, outerRadius])   // Domain will be define later.
-      .domain([0, 10000]); // Domain of Y is from 0 to the max seen in the data
+  // X scale
+  const x = d3v5.scaleBand()
+    .range([0, 2 * Math.PI])
+    .align(0) // This does nothing
+    .domain(data.map(function(d) {
+      return d.name;
+    })); // The domain of the X axis is the list of states.
+
+  // Y scale
+  const y = d3v5.scaleRadial()
+    .range([innerRadius, outerRadius]) // Domain will be define later.
+    .domain([0, 10000]); // Domain of Y is from 0 to the max seen in the data
 
   // Second barplot Scales
-  var ybis = d3v5.scaleRadial()
-      .range([innerRadius, 5])   // Domain will be defined later.
-      .domain([0, 13000]);
-
-
+  const ybis = d3v5.scaleRadial()
+    .range([innerRadius, 5]) // Domain will be defined later.
+    .domain([0, 13000]);
 
   // Add the bars
   svg.append("g")
@@ -44,242 +73,223 @@ var svg = d3v5.select("#specieschange_circularbars")
     .data(data)
     .enter()
     .append("path")
-      .attr("fill", function(d) {
-        if (d.value >= 100) {
-          return "#98FB98"
-        }
-        else {
-          return "#ff6961"
-        }
+    .attr("fill", function(d) {
+      if (d.value >= 100) {
+        return "#98FB98"
+      } else {
+        return "#ff6961"
+      }
+    })
+    .attr("class", "yo")
+    .attr("d", d3v5.arc() // imagine your doing a part of a donut plot
+      .innerRadius(innerRadius)
+      .outerRadius(function(d) {
+        return y(d['value']);
       })
-      .attr("class", "yo")
-      .attr("d", d3v5.arc()     // imagine your doing a part of a donut plot
-          .innerRadius(innerRadius)
-          .outerRadius(function(d) { return y(d['value']); })
-          .startAngle(function(d) { return x(d.name); })
-          .endAngle(function(d) { return x(d.name) + x.bandwidth(); })
-          .padAngle(0.01)
-          .padRadius(innerRadius))
-          .on("mouseover", function(d) {
-            tooltip.style("display", null);
-          })
-          .on("mouseout", function() {
-            tooltip.style("display", "none");
-          })
-          .on("mousemove", function(d) {
-            var xPosition = d3v5.mouse(this)[0] - 15;
-            var yPosition = d3v5.mouse(this)[1] - 25;
-            tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-            tooltip.select("text").text((d.value - 100) + "%")
-          });
-
+      .startAngle(function(d) {
+        return x(d.name);
+      })
+      .endAngle(function(d) {
+        return x(d.name) + x.bandwidth();
+      })
+      .padAngle(0.01)
+      .padRadius(innerRadius))
+    .on("mouseover", function(d) {
+      tooltip.style("display", null);
+    })
+    .on("mouseout", function() {
+      tooltip.style("display", "none");
+    })
+    .on("mousemove", function(d) {
+      const xPosition = d3v5.mouse(this)[0] - 15;
+      const yPosition = d3v5.mouse(this)[1] - 25;
+      tooltip.attr("transform", "translate(" + xPosition + "," + yPosition +
+                                           ")");
+      tooltip.select("text").text((d.value - 100) + "%")
+    });
 
   // Add the labels
   svg.append("g")
-      .attr("class", "gimmelabels")
-      .selectAll("g")
-      .data(data)
-      .enter()
-      .append("g")
-        .attr("text-anchor", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
-        .attr("transform", function(d) { return "rotate(" + ((x(d.name) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")"+"translate(" + (y(d['value'])+10) + ",0)"; })
-        .attr("class", "speciesbar")
-      .append("text")
-        .text(function(d){return(d.name)})
-        .attr("transform", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
-        .style("font-size", "11px")
-        .attr("alignment-baseline", "middle")
-        .attr("class", "specieslabel")
+    .attr("class", "gimmelabels")
+    .selectAll("g")
+    .data(data)
+    .enter()
+    .append("g")
+    .attr("text-anchor", function(d) {
+      return (x(d.name) + x.bandwidth() / 2 + Math.PI) %
+                          (2 * Math.PI) < Math.PI ? "end" : "start";
+    })
+    .attr("transform", function(d) {
+      return "rotate(" + ((x(d.name) + x.bandwidth() / 2) * 180 /Math.PI - 90) +
+                         ")" + "translate(" + (y(d['value']) + 10) + ",0)";
+    })
+    .attr("class", "speciesbar")
+    .append("text")
+    .text(function(d) {
+      return (d.name)
+    })
+    .attr("transform", function(d) {
+      return (x(d.name) + x.bandwidth() / 2 + Math.PI) %
+                          (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)";
+    })
+    .style("font-size", "11px")
+    .attr("alignment-baseline", "middle")
+    .attr("class", "specieslabel")
 
-        // Set legend title
-        d3v5.select("#specieschange_circularbars").append("text")
-        // .attr("transform",
-        //     "translate(" + (-width/3.3) + " ," +
-        //                    -height/2 + ")")
-                           .attr("x", 0)
-                           .attr("y", 70)
-          .attr("dy", ".25em")
-          .text(species.charAt(0).toUpperCase() + species.slice(1) + " fauna in the " + location + " area in " + year + " relative to 1990")
-          .attr("class", "circular_title")
-          .attr("fill", "black")
-          .style("font-size", 20)
-          .style("font-family", "sans-serif")
+  // Set legend title
+  d3v5.select("#specieschange_circularbars").append("text")
+    .attr("x", 0)
+    .attr("y", 70)
+    .attr("dy", ".25em")
+    .text(species.charAt(0).toUpperCase() + species.slice(1) +
+                                            " fauna in the " + location +
+                                            " area in " + year +
+                                            " relative to 1990")
+    .attr("class", "circular_title")
+    .attr("fill", "black")
+    .style("font-size", 20)
+    .style("font-family", "sans-serif")
 
-          tooltip = svg.append("g")
-            .attr("class", "tooltip")
-            .style("display", "none")
-            .style("opacity", 1);
+  // Append tooltip
+  tooltip = svg.append("g")
+    .attr("class", "tooltip")
+    .style("display", "none")
+    .style("opacity", 1);
 
-          tooltip.append("text")
-            .attr("x", 15)
-            .attr("dy", "1.2em")
-            .style("text-anchor", "middle")
-            .attr("font-size", "12px")
-            .attr("font-weight", "bold");
-      };
+  // Set tooltip text
+  tooltip.append("text")
+    .attr("x", 15)
+    .attr("dy", "1.2em")
+    .style("text-anchor", "middle")
+    .attr("font-size", "12px")
+    .attr("font-weight", "bold");
+};
 
 
+// Function to update the circular bar chart
+function updateCircular(circulardata, location, year, species) {
+  const data = circulardata[location][year][species]
 
-function updateCircular(data, location, year, species) {
-
-  console.log("daaro")
-
+  // Update title
   d3v5.select(".circular_title")
     .text(function() {
       if (species == "bodem") {
-        return ("Benthic fauna in the " + location + " area in " + year + " relative to 1990")
+        return ("Benthic fauna in the " + location + " area in " +
+                year + " relative to 1990")
+      } else {
+        return (species.charAt(0).toUpperCase() + species.slice(1) +
+                                                  " fauna in the " + location +
+                                                  " area in " + year +
+                                                  " relative to 1990")
       }
-      else {
-      return (species.charAt(0).toUpperCase() + species.slice(1) + " fauna in the " + location + " area in " + year + " relative to 1990")
-    }
     })
 
-    console.log(species + " fauna in the " + location + " area in " + year + " relative to 1990")
+  // Set the dimensions and margins of the graph
+  const margin = {
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0
+    },
+    width = $("#specieschange").width() - margin.left - margin.right,
+    height = $("#specieschange").height() - margin.top - margin.bottom,
+    innerRadius = 90,
+    outerRadius = Math.min(width, height) / 2;
 
-  // set the dimensions and margins of the graph
-  var margin = {top: 0, right: 0, bottom: 0, left: 0},
-      width = $("#specieschange").width() - margin.left - margin.right,
-      height = $("#specieschange").height() - margin.top - margin.bottom,
-      innerRadius = 90,
-      outerRadius = Math.min(width, height) / 2;   // the outerRadius goes from the middle of the SVG area to the border
+  // X scale
+  const x = d3v5.scaleBand()
+    .range([0, 2 * Math.PI])
+    .align(0)
+    .domain(data.map(function(d) {
+      return d.name;
+    }));
 
-       var data = data[location][year][species]
+  // Y scale
+  const y = d3v5.scaleRadial()
+    .range([innerRadius, outerRadius])
+    .domain([0, 10000]);
 
+  // Select all path elements and add the new data
+  const nieuwedingen = d3v5.select(".barg")
+    .selectAll("path")
+    .data(data)
 
-  var x = d3v5.scaleBand()
-      .range([0, 2 * Math.PI])    // X axis goes from 0 to 2pi = all around the circle. If I stop at 1Pi, it will be around a half circle
-      .align(0)                  // This does nothing
-      .domain(data.map(function(d) { return d.name; })); // The domain of the X axis is the list of states.
-
-  // Y scale outer variable
-  var y = d3v5.scaleRadial()
-      .range([innerRadius, outerRadius])   // Domain will be define later.
-      .domain([0, 10000]); // Domain of Y is from 0 to the max seen in the data
-
-var nieuwedingen = d3v5.select(".barg")
-.selectAll("path")
-.data(data)
-
-console.log(nieuwedingen)
-
-//var tooltip = d3v5.select(".tooltip")
-
-console.log(tooltip)
-
-
-// Dit doet niks
-//
-var enter = nieuwedingen
-  .enter().append("path")
-
-
-
-  enter
-  .attr("d", d3v5.arc()     // imagine your doing a part of a donut plot
+  // Enter and append all new paths and merge them
+  nieuwedingen
+    .enter().append("path").merge(nieuwedingen)
+    .attr("d", d3v5.arc() // imagine your doing a part of a donut plot
       .innerRadius(innerRadius)
       .outerRadius(function(d) {
         console.log("heehoi")
-        return y(d['value']); })
+        return y(d['value']);
+      })
       .startAngle(function(d) {
-         return x(d.name); })
+        return x(d.name);
+      })
       .endAngle(function(d) {
-        return x(d.name) + x.bandwidth(); })
+        return x(d.name) + x.bandwidth();
+      })
       .padAngle(0.01)
       .padRadius(innerRadius))
-      .attr("class", "yo")
-      .on("mouseover", function(d) {
-        tooltip.style("display", null);
-      })
-      .on("mouseout", function() {
-        tooltip.style("display", "none");
-      })
-      .on("mousemove", function(d) {
-        var xPosition = d3v5.mouse(this)[0] - 15;
-        var yPosition = d3v5.mouse(this)[1] - 25;
-        tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-        tooltip.select("text").text((d.value - 100) + "%")
-      })
-      .attr("fill", function(d) {
-        if (d.value >= 100) {
-          return "#98FB98"
-        }
-        else {
-          return "#ff6961"
-        }
-      })
+    .attr("class", "yo")
+    .on("mouseover", function(d) {
+      tooltip.style("display", null);
+    })
+    .on("mouseout", function() {
+      tooltip.style("display", "none");
+    })
+    .on("mousemove", function(d) {
+      const xPosition = d3v5.mouse(this)[0] - 15;
+      const yPosition = d3v5.mouse(this)[1] - 25;
+      tooltip.attr("transform", "translate(" + xPosition + "," + yPosition +
+                                           ")");
+      tooltip.select("text").text((d.value - 100) + "%")
+    })
+    .attr("fill", function(d) {
+      if (d.value >= 100) {
+        return "#98FB98";
+      } else {
+        return "#ff6961";
+      }
+    });
 
-      nieuwedingen.exit().remove()
+  // Exit and remove old paths
+  nieuwedingen.exit().remove();
 
+  // Remove labels
+  const oldlabels = d3v5.selectAll(".specieslabel").remove();
 
-      nieuwedingen
-      .attr("d", d3v5.arc()     // imagine your doing a part of a donut plot
-          .innerRadius(innerRadius)
-          .outerRadius(function(d) {
-            console.log("heehoi")
-            return y(d['value']); })
-          .startAngle(function(d) {
-             return x(d.name); })
-          .endAngle(function(d) {
-            return x(d.name) + x.bandwidth(); })
-          .padAngle(0.01)
-          .padRadius(innerRadius))
-          .attr("class", "yo")
-          .on("mouseover", function(d) {
-            tooltip.style("display", null);
-          })
-          .on("mouseout", function() {
-            tooltip.style("display", "none");
-          })
-          .on("mousemove", function(d) {
-            var xPosition = d3v5.mouse(this)[0] - 15;
-            var yPosition = d3v5.mouse(this)[1] - 25;
-            tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-            tooltip.select("text").text((d.value - 100) + "%")
-          })
-          .attr("fill", function(d) {
-            if (d.value >= 100) {
-              return "#98FB98"
-            }
-            else {
-              return "#ff6961"
-            }
-          })
+  // Select labels and add new data
+  const nieuwelabels = d3v5.select(".gimmelabels")
+    .selectAll("g")
+    .data(data);
 
-          //nieuwedingen = nieuwedingen.merge(enter); ??? hoeft niet toch
+  // Enter append and merge new labels
+  nieuwelabels.enter()
+    .append("g")
+    .merge(nieuwelabels)
+    .attr("text-anchor", function(d) {
+      return (x(d.name) + x.bandwidth() / 2 +
+                          Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start";
+    })
+    .attr("transform", function(d) {
+      return "rotate(" + ((x(d.name) + x.bandwidth() / 2) *
+                         180 / Math.PI - 90) + ")" +
+                         "translate(" + (y(d['value']) + 10) + ",0)";
+    })
+    .attr("class", "nwebar")
+    .append("text")
+    .text(function(d) {
+      return (d.name)
+    })
+    .attr("transform", function(d) {
+      return (x(d.name) + x.bandwidth() / 2 + Math.PI) %
+                          (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)";
+    })
+    .style("font-size", "11px")
+    .attr("alignment-baseline", "middle")
+    .attr("class", "specieslabel")
 
-
-var nieuwelabels = d3v5.selectAll(".specieslabel").remove()
-
-var nieuwelabels = d3v5.select(".gimmelabels")
-.selectAll("g")
-.data(data)
-
-
-nieuwelabels.enter()
-.append("g")
-.attr("text-anchor", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
-.attr("transform", function(d) { return "rotate(" + ((x(d.name) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")"+"translate(" + (y(d['value'])+10) + ",0)"; })
-.attr("class", "nwebar")
-.append("text")
-.text(function(d){return(d.name)})
-.attr("transform", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
-.style("font-size", "11px")
-.attr("alignment-baseline", "middle")
-.attr("class", "specieslabel")
-
-nieuwelabels.exit().remove()
-
-nieuwelabels
-.attr("text-anchor", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
-.attr("transform", function(d) { return "rotate(" + ((x(d.name) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")"+"translate(" + (y(d['value'])+10) + ",0)"; })
-.attr("class", "speciesbar")
-.append("text")
-.text(function(d){return(d.name)})
-.attr("transform", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
-.style("font-size", "11px")
-.attr("alignment-baseline", "middle")
-.attr("class", "specieslabel")
-
-
-
-}
+  // Exit and remove the old labels
+  nieuwelabels.exit().remove();
+};
