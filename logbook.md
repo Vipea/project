@@ -38,8 +38,8 @@ Rewrote horizontal bars update functions so that it doesn't remove everything bu
 ## 19/06
 Made circularbars update with exit and remove instead of deleting all elements. Made all graph titles interactive. Made HTML titles responsive. Changed SVG x and y coordinates to transform so that it is responsive.
 
-`// Enter append and merge new labels
-nieuwelabels.enter()
+`// Enter append and merge new labels`
+`nieuwelabels.enter()`
   .append("g")
   .merge(nieuwelabels)
   .attr("text-anchor", function(d) {
@@ -52,7 +52,7 @@ nieuwelabels.enter()
                        "translate(" + (y(d['value']) + 10) + ",0)";
 
 // Exit and remove the old labels
-nieuwelabels.exit().remove();`
+nieuwelabels.exit().remove();
 
 ## 20/06
 Fixed tooltip bug to display in front of bars.
