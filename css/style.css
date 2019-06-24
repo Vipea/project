@@ -30,7 +30,8 @@ h3 {
 }
 
 html, body {
-  background-color: #89cff0
+  background-color: #89cff0;
+  scroll-behavior: smooth;
 }
 
 svg {

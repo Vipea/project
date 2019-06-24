@@ -23,7 +23,7 @@ North Sea is shown.
 
 // Load all data
 Promise.all([d3v5.json("./data/all_locations.json"),
-    d3v5.json("./data/allindividuals1.json"),
+    d3v5.json("./data/allindividuals2.json"),
     d3v5.json("./data/new_totals.json"),
     d3v5.json("./data/fishingmethods.json"),
   ])

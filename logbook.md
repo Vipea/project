@@ -23,23 +23,53 @@ Created two select elements, one select element to change the location that upda
 ## 12/06
 The slider is working now to update graphs, fixed bugs with resizing divs. Added responsive titles to all graphs. Colored bars to display increases or decreases.
 
+
 ## 13/06
 Succesfully integrated all update functions. Solved all update function bugs.
+
 
 ## 14/06
 Found data for fishing methods between 1990 - 2000, and integrated it into my dataset. Added axes labels for the fishing methods graph. Started re-designing my visualizations to be more story-telling. At this point I have a fully working version with all data integrated.
 
+![](doc/newdata.png)
+
 ## 17/06
-Restructured my project to be in a story-telling way. Every graph now takes up a full page with interactive scroll links in between, now there is room for text between the graphs.
+Restructured my project to be in a story-telling way. Every graph now takes up a full page with interactive scroll links in between, now there is room for text between the graphs. The final result should look like below, with every image taking up one full page.
+
+![](doc/17_06_storytell1.png)
+
+![](doc/17_06_storytell2.png)
+
+![](doc/17_06_storytell3.png)
+
+![](doc/17_06_storytell4.png)
 
 ## 18/06
 Rewrote horizontal bars update functions so that it doesn't remove everything but instead resets the x and width coordinates of every bar. Also started to select and update the amount of circularbars, as well as the circularbars labels with exit() and remove()
 
+~~~~
+const horizontalBars = d3v5.selectAll(".bar")
+  .data(locdata)
+  .transition()
+  .duration(100)
+  .attr("x", function(d) {
+    if (d.value - 100 >= 0) {
+      return width / 2;
+    } else {
+      return width / 2 - x(100 - d.value);
+    }
+  })
+  .attr("width", function(d) {
+    return x(Math.abs(100 - d.value));
+  })
+~~~~
+
 ## 19/06
 Made circularbars update with exit and remove instead of deleting all elements. Made all graph titles interactive. Made HTML titles responsive. Changed SVG x and y coordinates to transform so that it is responsive.
 
-`// Enter append and merge new labels`
-`nieuwelabels.enter()`
+~~~~
+// Enter append and merge new labels
+nieuwelabels.enter()
   .append("g")
   .merge(nieuwelabels)
   .attr("text-anchor", function(d) {
@@ -53,10 +83,26 @@ Made circularbars update with exit and remove instead of deleting all elements. 
 
 // Exit and remove the old labels
 nieuwelabels.exit().remove();
+~~~~
 
 ## 20/06
-Fixed tooltip bug to display in front of bars.
-Repositioned title to be more responsive.
-Styled slider, brought it to the front and made it transparent.
-Changed some d3 functions to d3v5.
-Centred select dropdown menu in the circular bar chart.
+I fixed a tooltip bug in the circular bar plot to display the value in front of the bars, it looks like such:
+
+![](doc/20_06_tooltip.png)
+
+I also centred select dropdown menu in the circular bar chart.
+
+Furthermore I repositioned the title of the circular bar plot to be more responsive.
+
+I styled the slider, brought it to the front and made it transparent, this is the current design:
+
+![](doc/20_06_verycoolslider.png)
+
+At last I changed most d3v3 functions to d3v5.
+
+## 24/06
+Made an transition for the circular bar plot for the bar length, fill colour and the labels. However when the user now changes the slider, the user has to wait for the transition to end. Therefore I disabled the transition again. Now on every on change of the slider the circular bar chart updates immediately. This allows for quick data exploration when the slider is being moved.
+
+I also created a legend for the circular bar plot that shows what the green and red bars mean.
+
+Furthermore I reformatted missing data in the JSON that contains the species occurrence per location.

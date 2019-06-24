@@ -59,12 +59,7 @@ function initializeBars(circulardata, location, year, species) {
   // Y scale
   const y = d3v5.scaleRadial()
     .range([innerRadius, outerRadius]) // Domain will be define later.
-    .domain([0, 10000]); // Domain of Y is from 0 to the max seen in the data
-
-  // Second barplot Scales
-  const ybis = d3v5.scaleRadial()
-    .range([innerRadius, 5]) // Domain will be defined later.
-    .domain([0, 13000]);
+    .domain([0, 4000]); // Domain of Y is from 0 to the max seen in the data
 
   // Add the bars
   svg.append("g")
@@ -132,27 +127,28 @@ function initializeBars(circulardata, location, year, species) {
       return (x(d.name) + x.bandwidth() / 2 + Math.PI) %
                           (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)";
     })
-    .style("font-size", "11px")
+    .style("font-size", "9px")
     .attr("alignment-baseline", "middle")
     .attr("class", "specieslabel")
 
   // Set legend title
   d3v5.select("#specieschange_circularbars").append("text")
     .attr("x", 0)
-    .attr("y", 70)
-    .attr("dy", ".25em")
+    .attr("y", 50)
     .text(species.charAt(0).toUpperCase() + species.slice(1) +
                                             " fauna in the " + location +
                                             " area in " + year +
                                             " relative to 1990")
     .attr("class", "circular_title")
     .attr("fill", "black")
-    .style("font-size", 20)
+    .style("font-size", 14)
     .style("font-family", "sans-serif")
 
+
+
   // Append tooltip
-  tooltip = svg.append("g")
-    .attr("class", "tooltip")
+  var tooltip = svg.append("g")
+    .attr("class", "circulartooltip")
     .style("display", "none")
     .style("opacity", 1);
 
@@ -163,6 +159,50 @@ function initializeBars(circulardata, location, year, species) {
     .style("text-anchor", "middle")
     .attr("font-size", "12px")
     .attr("font-weight", "bold");
+
+    const legendgreen = d3v5.select("#specieschange_circularbars").append("g")
+      .attr("class", "greenlegend")
+      .attr("x", 0)
+      .attr("y", 70)
+
+    // Draw legend
+    legendgreen.append("circle")
+      .attr("cx", 10)
+      .attr("cy", 70)
+      .attr("r", 10)
+      .style("fill", "#98FB98")
+
+
+
+    // Set legend text
+    legendgreen.append("text")
+      .attr("x", 30)
+      .attr("y", 69)
+      .attr("dy", ".35em")
+      .style("text-anchor", "start")
+      .text("Species increased since 1990")
+
+
+      const legendred = d3v5.select("#specieschange_circularbars").append("g")
+        .attr("class", "redlegend")
+        .attr("x", 0)
+        .attr("y", 95)
+
+      // Draw legend
+      legendred.append("circle")
+        .attr("cx", 10)
+        .attr("cy", 95)
+        .attr("r", 10)
+        .style("fill", "#ff6961")
+
+      // Set legend text
+      legendred.append("text")
+        .attr("x", 30)
+        .attr("y", 94)
+        .attr("dy", ".35em")
+        .style("text-anchor", "start")
+        .text("Species decreased since 1990")
+
 };
 
 
@@ -207,12 +247,15 @@ function updateCircular(circulardata, location, year, species) {
   // Y scale
   const y = d3v5.scaleRadial()
     .range([innerRadius, outerRadius])
-    .domain([0, 10000]);
+    .domain([0, 4000]);
 
   // Select all path elements and add the new data
   const nieuwedingen = d3v5.select(".barg")
     .selectAll("path")
     .data(data)
+
+    var tooltip = d3v5.select(".circulartooltip").attr("display", null)
+    console.log(tooltip)
 
   // Enter and append all new paths and merge them
   nieuwedingen
@@ -220,7 +263,9 @@ function updateCircular(circulardata, location, year, species) {
     .attr("d", d3v5.arc() // imagine your doing a part of a donut plot
       .innerRadius(innerRadius)
       .outerRadius(function(d) {
-        console.log("heehoi")
+        if (d['value'] < 11 || d['value'] == null) {
+          return y(d['value'] + 10);
+      }
         return y(d['value']);
       })
       .startAngle(function(d) {
@@ -286,7 +331,7 @@ function updateCircular(circulardata, location, year, species) {
       return (x(d.name) + x.bandwidth() / 2 + Math.PI) %
                           (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)";
     })
-    .style("font-size", "11px")
+    .style("font-size", "9px")
     .attr("alignment-baseline", "middle")
     .attr("class", "specieslabel")
 
