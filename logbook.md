@@ -106,3 +106,6 @@ Made an transition for the circular bar plot for the bar length, fill colour and
 I also created a legend for the circular bar plot that shows what the green and red bars mean.
 
 Furthermore I reformatted missing data in the JSON that contains the species occurrence per location.
+
+## 25/06
+Created a license, elaborated on readme, put the design and proposal in separate files. In the process of rewriting all d3v3 function to d3v5, one more function is left.

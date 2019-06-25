@@ -29,11 +29,20 @@ Promise.all([d3v5.json("./data/all_locations.json"),
   ])
   .then(
     function success(allData) {
-      console.log(allData)
       const locationdata = allData[0],
         speciesdata = allData[1],
         totaldata = allData[2],
         fishingdata = allData[3];
+
+
+      var user = {
+        email: "user@example.com",
+        firstName: "first",
+        lastName: "last"
+      };
+
+      console.log(user.email)
+      console.log(user["email"])
 
       // Create stacked bar chart
       initializeMethods(fishingdata)
