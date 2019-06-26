@@ -131,7 +131,9 @@ function changeBars(data, year) {
 
   // Add the divide line where there is zero change
   svg.append("path")
-    .attr("d", " M " + (width / 2 - 1) + " " + y("waddenzee") + " L " + (width / 2 - 1) + " " + (height) + " L " + (width / 2 + 1) + " " + (height) + " L " + (width / 2 + 1) + " " + y("waddenzee") + " ")
+    .attr("d", " M " + (width / 2 - 1) + " " + y("waddenzee") + " L " +
+          (width / 2 - 1) + " " + (height) + " L " + (width / 2 + 1) + " " +
+          (height) + " L " + (width / 2 + 1) + " " + y("waddenzee") + " ")
     .attr("fill", "red")
     .attr("class", "divide")
 
@@ -139,7 +141,7 @@ function changeBars(data, year) {
   svg.append("text")
     .attr("transform",
       "translate(" + (width / 2) + " ," +
-      10 + ")")
+      9 + ")")
     .style("text-anchor", "middle")
     .attr("dy", ".25em")
     .text("Fauna change relative to 1990 in the year " + year)

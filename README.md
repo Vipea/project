@@ -28,3 +28,9 @@ Then the user can select one of the horizontal bars to zoom in on that location,
 At last the user can choose an animal species in that location, and then transitions to the last graph in which the horizontal bar chart is shown in which the user can see the fauna change per individual species.
 
 ![](doc/17_06_storytell4.png)
+
+
+
+The README.md should also acknowledge sources of external code, images and other materials that are in the repository but not created by yourself. Make sure that it is clear which directories are copyrighted by different creators.
+
+Also note that these materials have their own respective licenses. You should at the very least note this fact (again, in the README.md). Make sure you also check the licenses to see if you should make a special statement about the source of the materials.

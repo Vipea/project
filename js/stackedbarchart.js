@@ -140,8 +140,22 @@ function initializeMethods(data) {
     })
     .append("a")
     .attr("target", "_blank")
-    .attr("xlink:href", function(d)
-    {return "http://google.com"})
+    .attr("xlink:href", function(d, i) {
+      switch (i) {
+        case 0:
+          return "https://en.wikipedia.org/wiki/Bottom_trawling";
+        case 1:
+          return "http://www.padmos.nl/en/products/new-construction/5";
+        case 2:
+          return "https://en.wikipedia.org/wiki/Electric_pulse_fishing";
+        case 3:
+          return "http://www.sumwing.nl/SumWing_EN.pdf";
+        case 4:
+          return "https://en.wikipedia.org/wiki/Shrimp_fishery";
+        case 5:
+          return "https://en.wikipedia.org/wiki/Fishing_techniques";
+      };
+    });
 
   // Draw legend
   legend.append("rect")

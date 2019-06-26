@@ -133,7 +133,7 @@ function changeLine(linedata, location) {
 
   // Append the y axis
   svg.append("g")
-    .attr("class", "y axis")
+    .attr("class", "yAaxis")
     .call(yAxis)
     .append("text")
     .attr("transform", "rotate(-90)")
@@ -369,11 +369,21 @@ function updateLineHeight(linedata, location) {
       });
     }),
     d3v5.max(cities, function(c) {
+      console.log(c)
       return d3v5.max(c.values, function(v) {
         return v.temperature;
       });
     })
   ]);
+
+  // Set y axis
+  const yAxis = d3v5.axisLeft(y)
+
+  // Update the y axis
+  d3v5.select(".yAaxis")
+    .transition()
+    .duration(2000)
+    .call(yAxis)
 
   // Update the line
   const nieuwelijn = d3v5.select(".line")
