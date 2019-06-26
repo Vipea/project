@@ -98,7 +98,10 @@ I styled the slider, brought it to the front and made it transparent, this is th
 
 ![](doc/20_06_verycoolslider.png)
 
-At last I changed most d3v3 functions to d3v5.
+## 21/06
+Changed most d3v3 functions to d3v5.
+Published project to GitHub Pages.
+Solved 404 errors on Pages.
 
 ## 24/06
 Made an transition for the circular bar plot for the bar length, fill colour and the labels. However when the user now changes the slider, the user has to wait for the transition to end. Therefore I disabled the transition again. Now on every on change of the slider the circular bar chart updates immediately. This allows for quick data exploration when the slider is being moved.
@@ -109,3 +112,6 @@ Furthermore I reformatted missing data in the JSON that contains the species occ
 
 ## 25/06
 Created a license, elaborated on readme, put the design and proposal in separate files. In the process of rewriting all d3v3 function to d3v5, one more function is left.
+
+## 26/06
+Whole project is now in d3v5.

@@ -34,16 +34,6 @@ Promise.all([d3v5.json("./data/all_locations.json"),
         totaldata = allData[2],
         fishingdata = allData[3];
 
-
-      var user = {
-        email: "user@example.com",
-        firstName: "first",
-        lastName: "last"
-      };
-
-      console.log(user.email)
-      console.log(user["email"])
-
       // Create stacked bar chart
       initializeMethods(fishingdata)
 
@@ -57,32 +47,32 @@ Promise.all([d3v5.json("./data/all_locations.json"),
       initializeBars(speciesdata, "coastal", "1991", "fish")
 
       // Onchange event for selecting species updates the circular bar chart
-      $("#select_species").change(function() {
+      $("#selectSpecies").change(function() {
         updateCircular(speciesdata, $("#select_location").val(),
-          $("#customRange1").val(), $("#select_species").val());
+          $("#customRange1").val(), $("#selectSpecies").val());
       });
 
       // Onchange event for selecting location updates the circular bar chart
       $("#select_location").change(function() {
         updateCircular(speciesdata, $("#select_location").val(),
-          $("#customRange1").val(), $("#select_species").val());
+          $("#customRange1").val(), $("#selectSpecies").val());
       });
 
 
       // Onclick event updates horizontal and circular bars and the range input
       d3v5.selectAll(".stackedbar").on("click", function(d) {
-        updateBars(locationdata, d.x);
-        updateCircular(speciesdata, $("#select_location").val(), d.x,
-          $("#select_species").val());
+        updateBars(locationdata, d.data.Year);
+        updateCircular(speciesdata, $("#select_location").val(), d.data.Year,
+          $("#selectSpecies").val());
 
         $('html,body').animate({
             scrollTop: $("#text-change").offset().top
           },
           'slow');
 
-        $("#customRange1").val(d.x);
+        $("#customRange1").val(d.data.Year);
 
-        document.getElementById("showVal").innerHTML = d.x;
+        document.getElementById("showVal").innerHTML = d.data.Year;
       });
 
       // Show the range input value
@@ -93,7 +83,7 @@ Promise.all([d3v5.json("./data/all_locations.json"),
       slider.oninput = function() {
         updateBars(locationdata, slider.value);
         updateCircular(speciesdata, $("#select_location").val(), slider.value,
-          $("#select_species").val());
+          $("#selectSpecies").val());
         document.getElementById("showVal").innerHTML = slider.value;
       };
 
@@ -101,7 +91,7 @@ Promise.all([d3v5.json("./data/all_locations.json"),
       d3v5.selectAll(".bar").on("click", function(d) {
         updateLineHeight(totaldata, d.location);
         updateCircular(speciesdata, d.location, $("#customRange1").val(),
-          $("#select_species").val());
+          $("#selectSpecies").val());
         $('html,body').animate({
             scrollTop: $("#text-total").offset().top
           },
@@ -113,11 +103,11 @@ Promise.all([d3v5.json("./data/all_locations.json"),
       })
 
       // Onclick of horizontal bar ticks updates line chart and circular bars
-      d3v5.select("#faunachange_relativebars").selectAll(".tick").on("click",
+      d3v5.select("#faunachangeRelativebars").selectAll(".tick").on("click",
         function(d) {
           updateLineHeight(totaldata, d);
           updateCircular(speciesdata, d, $("#customRange1").val(),
-            $("#select_species").val());
+            $("#selectSpecies").val());
           $('html,body').animate({
               scrollTop: $("#text-total").offset().top
             },
@@ -129,11 +119,11 @@ Promise.all([d3v5.json("./data/all_locations.json"),
         });
 
       // On click of horizontal bar labels updates line chart and circular bars
-      d3v5.selectAll(".overall_label")
+      d3v5.selectAll(".overallLabel")
         .on("click", function(d) {
           updateLineHeight(totaldata, d.location);
           updateCircular(speciesdata, d.location, $("#customRange1").val(),
-            $("#select_species").val());
+            $("#selectSpecies").val());
           $('html,body').animate({
               scrollTop: $("#text-total").offset().top
             },
@@ -152,7 +142,7 @@ Promise.all([d3v5.json("./data/all_locations.json"),
             scrollTop: $("#text-circular").offset().top
           },
           'slow');
-        $("#select_species").val("bird");
+        $("#selectSpecies").val("bird");
       });
 
       // Onclick of the icons updates circular bar chart
@@ -163,7 +153,7 @@ Promise.all([d3v5.json("./data/all_locations.json"),
             scrollTop: $("#text-circular").offset().top
           },
           'slow');
-        $("#select_species").val("fish");
+        $("#selectSpecies").val("fish");
       });
 
       // Onclick of the icons updates circular bar chart
@@ -174,7 +164,7 @@ Promise.all([d3v5.json("./data/all_locations.json"),
             scrollTop: $("#text-circular").offset().top
           },
           'slow');
-        $("#select_species").val("bodem");
+        $("#selectSpecies").val("bodem");
       });
 
     },

@@ -25,20 +25,16 @@ North Sea is shown.
 function initializeMethods(data) {
 
   // Transpose the data into layers
-  const dataset = d3.layout.stack()(["Boomkor", "Flyshoot", "Puls", "Sumwing", "Garnalen", "Diversen"].map(function(fruit) { // ??? hoe?
-    return data.map(function(d) {
-      return {
-        x: d.Year,
-        y: +d[fruit]
-      };
-    });
-  }));
+  const stack = d3v5.stack()
+  .keys(["Trawling", "Flyshoot", "Puls", "Sumwing", "Shrimps", "Miscellaneous"])
+
+  const dataset = stack(data)
 
   // Add margin
   const margin = {
     top: 20,
-    right: 80,
-    bottom: 40,
+    right: 100,
+    bottom: 60,
     left: 20
   };
 
@@ -47,7 +43,7 @@ function initializeMethods(data) {
     height = $("#fishingmethods").height() - margin.top - margin.bottom;
 
   // Select SVG
-  const svg = d3v5.select("#fishingmethods_stackedbars")
+  const svg = d3v5.select("#fishingmethodsStackedbars")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -56,7 +52,7 @@ function initializeMethods(data) {
   // Set x, y and colors
   const x = d3v5.scaleBand()
     .domain(dataset[0].map(function(d) {
-      return d.x;
+      return d.data.Year;
     }))
     .range([10, width - 10], 0.02);
 
@@ -64,7 +60,7 @@ function initializeMethods(data) {
   const y = d3v5.scaleLinear()
     .domain([0, d3v5.max(dataset, function(d) {
       return d3v5.max(d, function(d) {
-        return d.y0 + d.y;
+        return d["1"];
       });
     })])
     .range([height, 0]);
@@ -112,13 +108,13 @@ function initializeMethods(data) {
     .append("rect")
     .attr("class", "stackedbar")
     .attr("x", function(d) {
-      return x(d.x);
+      return x(d.data.Year);
     })
     .attr("y", function(d) {
-      return y(d.y0 + d.y);
+      return y(d["1"]);
     })
     .attr("height", function(d) {
-      return y(d.y0) - y(d.y0 + d.y);
+      return y(d["0"]) - y(d["1"]);
     })
     .attr("width", x.bandwidth() - 1)
     .on("mouseover", function(d) {
@@ -131,7 +127,7 @@ function initializeMethods(data) {
       const xPosition = d3v5.mouse(this)[0] + 10;
       const yPosition = d3v5.mouse(this)[1] - 25;
       tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-      tooltip.select("text").text(d.y.toPrecision(2) + " million HP days");
+      tooltip.select("text").text((d["1"]-d["0"]).toPrecision(2) + " million HP days");
     });
 
   // Create legend
@@ -141,7 +137,11 @@ function initializeMethods(data) {
     .attr("class", "legend")
     .attr("transform", function(d, i) {
       return "translate(30," + i * 19 + ")";
-    });
+    })
+    .append("a")
+    .attr("target", "_blank")
+    .attr("xlink:href", function(d)
+    {return "http://google.com"})
 
   // Draw legend
   legend.append("rect")
@@ -161,7 +161,7 @@ function initializeMethods(data) {
     .text(function(d, i) {
       switch (i) {
         case 0:
-          return "Boomkor";
+          return "Trawling";
         case 1:
           return "Flyshoot";
         case 2:
@@ -169,9 +169,9 @@ function initializeMethods(data) {
         case 3:
           return "Sumwing";
         case 4:
-          return "Garnalen";
+          return "Shrimps";
         case 5:
-          return "Diversen";
+          return "Miscellaneous";
       };
     });
 

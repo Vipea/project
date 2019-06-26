@@ -28,7 +28,7 @@ function changeBars(data, year) {
   const locdata = data[year]
 
   // Select SVG
-  svg = d3v5.select("#faunachange_relativebars")
+  const svg = d3v5.select("#faunachangeRelativebars")
 
   // Set margin
   const margin = {
@@ -108,7 +108,7 @@ function changeBars(data, year) {
 
   // Add a value label
   bars.append("text")
-    .attr("class", "overall_label")
+    .attr("class", "overallLabel")
     //y position of the label is halfway down the bar
     .attr("y", function(d) {
       return y(d.location) + y.bandwidth() / 2 + 4;
@@ -146,7 +146,7 @@ function changeBars(data, year) {
     .attr("fill", "black")
     .style("font-size", 20)
     .style("font-family", "sans-serif")
-    .attr("class", "overall_title");
+    .attr("class", "overallTitle");
 
 };
 
@@ -198,7 +198,7 @@ function updateBars(data, year) {
     });
 
   // Update labels
-  d3v5.selectAll(".overall_label")
+  d3v5.selectAll(".overallLabel")
     .data(locdata)
     .transition()
     .duration(100)
@@ -214,6 +214,6 @@ function updateBars(data, year) {
     });
 
   // Update title
-  d3v5.select(".overall_title")
+  d3v5.select(".overallTitle")
     .text("Fauna change relative to 1990 in the year " + year);
 };

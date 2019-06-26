@@ -65,7 +65,7 @@ function changeLine(linedata, location) {
     });
 
   // Select SVG and transform the location
-  const svg = d3v5.select("#faunatotal_linechart")
+  const svg = d3v5.select("#faunatotalLinechart")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     .attr("class", "totalline");
@@ -95,7 +95,6 @@ function changeLine(linedata, location) {
 
   // Set x domain
   x.domain(d3v5.extent(data, function(d) {
-    console.log(d.date)
     return d.date;
   }));
 
@@ -165,7 +164,6 @@ function changeLine(linedata, location) {
   city.append("path")
     .attr("class", "line")
     .attr("d", function(d) {
-      console.log(d.values)
       return line(d.values);
     })
     .style("stroke", function(d) {
@@ -205,7 +203,9 @@ function changeLine(linedata, location) {
 
   // Add text next to the circle
   mousePerLine.append("text")
-    .attr("transform", "translate(10,3)");
+    .attr("transform", "translate(10,3)")
+    .attr("font-size", "12px")
+    .attr("font-weight", "bold")
 
   // Append a rect to catch mouse movements
   mouseG.append('svg:rect')
@@ -348,7 +348,6 @@ function updateLineHeight(linedata, location) {
     return {
       name: name,
       values: data.map(function(d) {
-        console.log("enhierdan")
         return {
           date: d.date,
           temperature: +d[name]
@@ -382,7 +381,6 @@ function updateLineHeight(linedata, location) {
     .transition()
     .duration(2000)
     .attr("d", function(d) {
-      console.log(line(d.values))
       return line(d.values);
     })
     .style("stroke", function(d) {

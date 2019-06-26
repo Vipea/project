@@ -39,7 +39,7 @@ function initializeBars(circulardata, location, year, species) {
     outerRadius = Math.min(width, height) / 2;
 
   // Append the svg object
-  const svg = d3v5.select("#specieschange_circularbars")
+  const svg = d3v5.select("#specieschangeCircularbars")
     .attr("width", width + margin.left + margin.right)
     .attr("class", "circlesvg")
     .attr("height", height + margin.top + margin.bottom)
@@ -51,15 +51,15 @@ function initializeBars(circulardata, location, year, species) {
   // X scale
   const x = d3v5.scaleBand()
     .range([0, 2 * Math.PI])
-    .align(0) // This does nothing
+    .align(0)
     .domain(data.map(function(d) {
       return d.name;
-    })); // The domain of the X axis is the list of states.
+    }));
 
   // Y scale
   const y = d3v5.scaleRadial()
-    .range([innerRadius, outerRadius]) // Domain will be define later.
-    .domain([0, 4000]); // Domain of Y is from 0 to the max seen in the data
+    .range([innerRadius, outerRadius])
+    .domain([0, 4000]);
 
   // Add the bars
   svg.append("g")
@@ -76,7 +76,7 @@ function initializeBars(circulardata, location, year, species) {
       }
     })
     .attr("class", "yo")
-    .attr("d", d3v5.arc() // imagine your doing a part of a donut plot
+    .attr("d", d3v5.arc()
       .innerRadius(innerRadius)
       .outerRadius(function(d) {
         return y(d['value']);
@@ -127,27 +127,27 @@ function initializeBars(circulardata, location, year, species) {
       return (x(d.name) + x.bandwidth() / 2 + Math.PI) %
                           (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)";
     })
-    .style("font-size", "9px")
+    .style("font-size", "11px")
     .attr("alignment-baseline", "middle")
     .attr("class", "specieslabel")
 
   // Set legend title
-  d3v5.select("#specieschange_circularbars").append("text")
+  d3v5.select("#specieschangeCircularbars").append("text")
     .attr("x", 0)
     .attr("y", 50)
     .text(species.charAt(0).toUpperCase() + species.slice(1) +
                                             " fauna in the " + location +
                                             " area in " + year +
                                             " relative to 1990")
-    .attr("class", "circular_title")
+    .attr("class", "circularTitle")
     .attr("fill", "black")
-    .style("font-size", 14)
+    .style("font-size", 20)
     .style("font-family", "sans-serif")
 
 
 
   // Append tooltip
-  var tooltip = svg.append("g")
+  const tooltip = svg.append("g")
     .attr("class", "circulartooltip")
     .style("display", "none")
     .style("opacity", 1);
@@ -160,49 +160,48 @@ function initializeBars(circulardata, location, year, species) {
     .attr("font-size", "12px")
     .attr("font-weight", "bold");
 
-    const legendgreen = d3v5.select("#specieschange_circularbars").append("g")
+    const legendGreen = d3v5.select("#specieschangeCircularbars").append("g")
       .attr("class", "greenlegend")
       .attr("x", 0)
       .attr("y", 70)
 
     // Draw legend
-    legendgreen.append("circle")
+    legendGreen.append("circle")
       .attr("cx", 10)
       .attr("cy", 70)
       .attr("r", 10)
       .style("fill", "#98FB98")
 
-
-
     // Set legend text
-    legendgreen.append("text")
+    legendGreen.append("text")
       .attr("x", 30)
-      .attr("y", 69)
+      .attr("y", 70)
+      .attr("font-size", "11px")
       .attr("dy", ".35em")
       .style("text-anchor", "start")
       .text("Species increased since 1990")
 
 
-      const legendred = d3v5.select("#specieschange_circularbars").append("g")
+      const legendRed = d3v5.select("#specieschangeCircularbars").append("g")
         .attr("class", "redlegend")
         .attr("x", 0)
         .attr("y", 95)
 
       // Draw legend
-      legendred.append("circle")
+      legendRed.append("circle")
         .attr("cx", 10)
         .attr("cy", 95)
         .attr("r", 10)
         .style("fill", "#ff6961")
 
       // Set legend text
-      legendred.append("text")
+      legendRed.append("text")
         .attr("x", 30)
-        .attr("y", 94)
+        .attr("y", 95)
+        .attr("font-size", "11px")
         .attr("dy", ".35em")
         .style("text-anchor", "start")
         .text("Species decreased since 1990")
-
 };
 
 
@@ -211,16 +210,16 @@ function updateCircular(circulardata, location, year, species) {
   const data = circulardata[location][year][species]
 
   // Update title
-  d3v5.select(".circular_title")
+  d3v5.select(".circularTitle")
     .text(function() {
       if (species == "bodem") {
         return ("Benthic fauna in the " + location + " area in " +
-                year + " relative to 1990")
+                year + " relative to 1990");
       } else {
         return (species.charAt(0).toUpperCase() + species.slice(1) +
                                                   " fauna in the " + location +
                                                   " area in " + year +
-                                                  " relative to 1990")
+                                                  " relative to 1990");
       }
     })
 
@@ -250,17 +249,16 @@ function updateCircular(circulardata, location, year, species) {
     .domain([0, 4000]);
 
   // Select all path elements and add the new data
-  const nieuwedingen = d3v5.select(".barg")
+  const newBars = d3v5.select(".barg")
     .selectAll("path")
-    .data(data)
+    .data(data);
 
-    var tooltip = d3v5.select(".circulartooltip").attr("display", null)
-    console.log(tooltip)
+    const tooltip = d3v5.select(".circulartooltip").attr("display", null);
 
   // Enter and append all new paths and merge them
-  nieuwedingen
-    .enter().append("path").merge(nieuwedingen)
-    .attr("d", d3v5.arc() // imagine your doing a part of a donut plot
+  newBars
+    .enter().append("path").merge(newBars)
+    .attr("d", d3v5.arc()
       .innerRadius(innerRadius)
       .outerRadius(function(d) {
         if (d['value'] < 11 || d['value'] == null) {
@@ -299,20 +297,20 @@ function updateCircular(circulardata, location, year, species) {
     });
 
   // Exit and remove old paths
-  nieuwedingen.exit().remove();
+  newBars.exit().remove();
 
   // Remove labels
-  const oldlabels = d3v5.selectAll(".specieslabel").remove();
+  const oldLabels = d3v5.selectAll(".specieslabel").remove();
 
   // Select labels and add new data
-  const nieuwelabels = d3v5.select(".gimmelabels")
+  const newLabels = d3v5.select(".gimmelabels")
     .selectAll("g")
     .data(data);
 
   // Enter append and merge new labels
-  nieuwelabels.enter()
+  newLabels.enter()
     .append("g")
-    .merge(nieuwelabels)
+    .merge(newLabels)
     .attr("text-anchor", function(d) {
       return (x(d.name) + x.bandwidth() / 2 +
                           Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start";
@@ -331,10 +329,10 @@ function updateCircular(circulardata, location, year, species) {
       return (x(d.name) + x.bandwidth() / 2 + Math.PI) %
                           (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)";
     })
-    .style("font-size", "9px")
+    .style("font-size", "11px")
     .attr("alignment-baseline", "middle")
     .attr("class", "specieslabel")
 
   // Exit and remove the old labels
-  nieuwelabels.exit().remove();
+  newLabels.exit().remove();
 };
