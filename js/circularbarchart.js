@@ -134,7 +134,7 @@ function initializeBars(circulardata, location, year, species) {
   // Set legend title
   d3v5.select("#specieschangeCircularbars").append("text")
     .attr("x", 0)
-    .attr("y", 50)
+    .attr("y", 30)
     .text(species.charAt(0).toUpperCase() + species.slice(1) +
                                             " fauna in the " + location +
                                             " area in " + year +
@@ -162,20 +162,18 @@ function initializeBars(circulardata, location, year, species) {
 
     const legendGreen = d3v5.select("#specieschangeCircularbars").append("g")
       .attr("class", "greenlegend")
-      .attr("x", 0)
-      .attr("y", 70)
 
     // Draw legend
     legendGreen.append("circle")
       .attr("cx", 10)
-      .attr("cy", 70)
+      .attr("cy", 50)
       .attr("r", 10)
       .style("fill", "#98FB98")
 
     // Set legend text
     legendGreen.append("text")
       .attr("x", 30)
-      .attr("y", 70)
+      .attr("y", 50)
       .attr("font-size", "11px")
       .attr("dy", ".35em")
       .style("text-anchor", "start")
@@ -184,20 +182,18 @@ function initializeBars(circulardata, location, year, species) {
 
       const legendRed = d3v5.select("#specieschangeCircularbars").append("g")
         .attr("class", "redlegend")
-        .attr("x", 0)
-        .attr("y", 95)
 
       // Draw legend
       legendRed.append("circle")
         .attr("cx", 10)
-        .attr("cy", 95)
+        .attr("cy", 75)
         .attr("r", 10)
         .style("fill", "#ff6961")
 
       // Set legend text
       legendRed.append("text")
         .attr("x", 30)
-        .attr("y", 95)
+        .attr("y", 75)
         .attr("font-size", "11px")
         .attr("dy", ".35em")
         .style("text-anchor", "start")

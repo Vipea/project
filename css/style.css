@@ -90,20 +90,19 @@ input[type=range]::-webkit-slider-runnable-track {
     stroke: #ddd;
   }
 
-
 html, body {
   height: 100%;
 }
 .container {
-  height: 50%;
+  height: 60%;
   background-color: #89cff0
 }
 #text-total {
-  height: 25%;
+  height: 30%;
 }
 
 #text-change {
-  height: 25%;
+  height: 40%;
 }
 
 #text-methods {
@@ -111,7 +110,7 @@ html, body {
 }
 
 #text-circular {
-  height: 15%;
+  height: 25%;
 }
 
 #specieschangeCircularbars {
@@ -127,11 +126,11 @@ html, body {
 }
 
 #big-container {
-  height: 85%;
+  height: 75%;
 }
 
 #icons {
-  height: 9%;
+  height: 10%;
 }
 
 .row {
@@ -169,7 +168,6 @@ html, body {
 
 }
 
-
 #birdicon, #fishicon, #benthicicon {
   font-size: 50px;
   color: steelblue;
@@ -201,7 +199,6 @@ select {
    -moz-appearance: none;
    appearance: none;
 }
-
 
 .yo {
   z-index: -1;
