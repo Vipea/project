@@ -45,7 +45,7 @@ function initializeBars(circulardata, location, year, species) {
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + (width / 2 + margin.left) + "," +
-                                  (height / 2 + margin.top) + ")")
+      (height / 2 + margin.top) + ")")
     .attr("class", "theg")
 
   // X scale
@@ -99,7 +99,7 @@ function initializeBars(circulardata, location, year, species) {
       const xPosition = d3v5.mouse(this)[0] - 15;
       const yPosition = d3v5.mouse(this)[1] - 25;
       tooltip.attr("transform", "translate(" + xPosition + "," + yPosition +
-                                           ")");
+        ")");
       tooltip.select("text").text((d.value - 100) + "%")
     });
 
@@ -112,11 +112,11 @@ function initializeBars(circulardata, location, year, species) {
     .append("g")
     .attr("text-anchor", function(d) {
       return (x(d.name) + x.bandwidth() / 2 + Math.PI) %
-                          (2 * Math.PI) < Math.PI ? "end" : "start";
+        (2 * Math.PI) < Math.PI ? "end" : "start";
     })
     .attr("transform", function(d) {
-      return "rotate(" + ((x(d.name) + x.bandwidth() / 2) * 180 /Math.PI - 90) +
-                         ")" + "translate(" + (y(d['value']) + 10) + ",0)";
+      return "rotate(" + ((x(d.name) + x.bandwidth() / 2) * 180 / Math.PI - 90) +
+        ")" + "translate(" + (y(d['value']) + 10) + ",0)";
     })
     .attr("class", "speciesbar")
     .append("text")
@@ -125,7 +125,7 @@ function initializeBars(circulardata, location, year, species) {
     })
     .attr("transform", function(d) {
       return (x(d.name) + x.bandwidth() / 2 + Math.PI) %
-                          (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)";
+        (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)";
     })
     .style("font-size", "11px")
     .attr("alignment-baseline", "middle")
@@ -136,9 +136,9 @@ function initializeBars(circulardata, location, year, species) {
     .attr("x", 0)
     .attr("y", 30)
     .text(species.charAt(0).toUpperCase() + species.slice(1) +
-                                            " fauna in the " + location +
-                                            " area in " + year +
-                                            " relative to 1990")
+      " fauna in the " + location +
+      " area in " + year +
+      " relative to 1990")
     .attr("class", "circularTitle")
     .attr("fill", "black")
     .style("font-size", 20)
@@ -160,44 +160,44 @@ function initializeBars(circulardata, location, year, species) {
     .attr("font-size", "12px")
     .attr("font-weight", "bold");
 
-    const legendGreen = d3v5.select("#specieschangeCircularbars").append("g")
-      .attr("class", "greenlegend")
+  const legendGreen = d3v5.select("#specieschangeCircularbars").append("g")
+    .attr("class", "greenlegend")
 
-    // Draw legend
-    legendGreen.append("circle")
-      .attr("cx", 10)
-      .attr("cy", 50)
-      .attr("r", 10)
-      .style("fill", "#98FB98")
+  // Draw legend
+  legendGreen.append("circle")
+    .attr("cx", 10)
+    .attr("cy", 50)
+    .attr("r", 10)
+    .style("fill", "#98FB98")
 
-    // Set legend text
-    legendGreen.append("text")
-      .attr("x", 30)
-      .attr("y", 50)
-      .attr("font-size", "11px")
-      .attr("dy", ".35em")
-      .style("text-anchor", "start")
-      .text("Species increased since 1990")
+  // Set legend text
+  legendGreen.append("text")
+    .attr("x", 30)
+    .attr("y", 50)
+    .attr("font-size", "11px")
+    .attr("dy", ".35em")
+    .style("text-anchor", "start")
+    .text("Species increased since 1990")
 
+  // Add the red legend
+  const legendRed = d3v5.select("#specieschangeCircularbars").append("g")
+    .attr("class", "redlegend")
 
-      const legendRed = d3v5.select("#specieschangeCircularbars").append("g")
-        .attr("class", "redlegend")
+  // Draw legend
+  legendRed.append("circle")
+    .attr("cx", 10)
+    .attr("cy", 75)
+    .attr("r", 10)
+    .style("fill", "#ff6961")
 
-      // Draw legend
-      legendRed.append("circle")
-        .attr("cx", 10)
-        .attr("cy", 75)
-        .attr("r", 10)
-        .style("fill", "#ff6961")
-
-      // Set legend text
-      legendRed.append("text")
-        .attr("x", 30)
-        .attr("y", 75)
-        .attr("font-size", "11px")
-        .attr("dy", ".35em")
-        .style("text-anchor", "start")
-        .text("Species decreased since 1990")
+  // Set legend text
+  legendRed.append("text")
+    .attr("x", 30)
+    .attr("y", 75)
+    .attr("font-size", "11px")
+    .attr("dy", ".35em")
+    .style("text-anchor", "start")
+    .text("Species decreased since 1990")
 };
 
 
@@ -210,12 +210,12 @@ function updateCircular(circulardata, location, year, species) {
     .text(function() {
       if (species == "bodem") {
         return ("Benthic fauna in the " + location + " area in " +
-                year + " relative to 1990");
+          year + " relative to 1990");
       } else {
         return (species.charAt(0).toUpperCase() + species.slice(1) +
-                                                  " fauna in the " + location +
-                                                  " area in " + year +
-                                                  " relative to 1990");
+          " fauna in the " + location +
+          " area in " + year +
+          " relative to 1990");
       }
     })
 
@@ -224,7 +224,7 @@ function updateCircular(circulardata, location, year, species) {
       top: 0,
       right: 0,
       bottom: 0,
-      left: 0
+      left: 50
     },
     width = $("#specieschange").width() - margin.left - margin.right,
     height = $("#specieschange").height() - margin.top - margin.bottom,
@@ -249,7 +249,7 @@ function updateCircular(circulardata, location, year, species) {
     .selectAll("path")
     .data(data);
 
-    const tooltip = d3v5.select(".circulartooltip").attr("display", null);
+  const tooltip = d3v5.select(".circulartooltip").attr("display", null);
 
   // Enter and append all new paths and merge them
   newBars
@@ -259,7 +259,7 @@ function updateCircular(circulardata, location, year, species) {
       .outerRadius(function(d) {
         if (d['value'] < 11 || d['value'] == null) {
           return y(d['value'] + 10);
-      }
+        }
         return y(d['value']);
       })
       .startAngle(function(d) {
@@ -281,7 +281,7 @@ function updateCircular(circulardata, location, year, species) {
       const xPosition = d3v5.mouse(this)[0] - 15;
       const yPosition = d3v5.mouse(this)[1] - 25;
       tooltip.attr("transform", "translate(" + xPosition + "," + yPosition +
-                                           ")");
+        ")");
       tooltip.select("text").text((d.value - 100) + "%")
     })
     .attr("fill", function(d) {
@@ -309,12 +309,12 @@ function updateCircular(circulardata, location, year, species) {
     .merge(newLabels)
     .attr("text-anchor", function(d) {
       return (x(d.name) + x.bandwidth() / 2 +
-                          Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start";
+        Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start";
     })
     .attr("transform", function(d) {
       return "rotate(" + ((x(d.name) + x.bandwidth() / 2) *
-                         180 / Math.PI - 90) + ")" +
-                         "translate(" + (y(d['value']) + 10) + ",0)";
+          180 / Math.PI - 90) + ")" +
+        "translate(" + (y(d['value']) + 10) + ",0)";
     })
     .attr("class", "nwebar")
     .append("text")
@@ -323,7 +323,7 @@ function updateCircular(circulardata, location, year, species) {
     })
     .attr("transform", function(d) {
       return (x(d.name) + x.bandwidth() / 2 + Math.PI) %
-                          (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)";
+        (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)";
     })
     .style("font-size", "11px")
     .attr("alignment-baseline", "middle")

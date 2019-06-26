@@ -281,7 +281,7 @@ function changeLine(linedata, location) {
 
   // Add title
   svg.append("text")
-    .attr("x", width/2)
+    .attr("x", width / 2)
     .attr("y", -30)
     .attr("dy", ".25em")
     .style("text-anchor", "middle")

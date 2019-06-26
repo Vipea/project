@@ -8,155 +8,142 @@
      North Sea.
      https://www.clo.nl/indicatoren/nl0587-visserijtechnieken -->
 
-<html lang="en" >
+<html lang="en">
 
-  <head>
+<head>
 
-    <meta charset="UTF-8">
-    <title>Fishing methods and correlating fauna trends in the North Sea</title>
+  <meta charset="UTF-8">
+  <title>Fishing methods and correlating fauna trends in the North Sea</title>
+  <script src="https://kit.fontawesome.com/62c09c1576.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
 
-    <script src="https://kit.fontawesome.com/62c09c1576.js"></script>
+</head>
 
+<body>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
-  </head>
+  <input type="range" min="1991" max="2012" class="custom-range" value="50" id="customRange1">
+  <span id="showVal"></span>
 
-  <body>
-
-      <input type="range" min="1991" max="2012" class="custom-range" value="50" id="customRange1">
-      <span id="showVal"></span>
-
-
-
-    <div class="container" id= "text-methods">
-      <h3>
-        <br>
-        This interactive visualization shows the influence of fishing methods on life in the North Sea.<br>
-        Fishing methods such as trawling scraped nets over the sea floor, turning over the soil.<br>
-        Many benthic animals have died as a result, which used to be the food source of small fish.<br>
-        Bigger fish eat smaller fish, birds eat big fish... A perfect recipe for ecosystem imbalance.<br>
-        Click in the legend for more information about the fishing method.<br>
-        Click on one of the bars to zoom in on the fauna change in that year<br>
+  <div class="container" id="text-methods">
+    <h3>
+      <br>
+      This interactive visualization shows the influence of fishing methods on life in the North Sea.<br>
+      Fishing methods such as trawling scraped nets over the sea floor, turning over the soil.<br>
+      Many benthic animals have died as a result, which used to be the food source of small fish.<br>
+      Bigger fish eat smaller fish, birds eat big fish... A perfect recipe for ecosystem imbalance.<br>
+      Click in the legend for more information about the fishing method.<br>
+      Click on one of the bars to zoom in on the fauna change in that year<br>
     </h3>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-12" id="fishingmethods">
-          <svg id="fishingmethodsStackedbars"></svg>
-        </div>
-      </div>
-      </div>
-
-      <hr>
-
-      <div class="container" id= "text-change">
-        <h3>
-          <br>
-          These horizontal bars show the percentual difference in overall fauna since 1990.<br>
-          Trawling has been gradually decreasing between 2000 - 2007, and then steeply dropped.<br>
-          Move the slider to note how the fauna has changed in those years.<br>
-          Click on a location to zoom in on a single location.
-      </h3>
-      </div>
-      <div class="container">
-        <div class="row">
-        <div class="col-12" id="faunachange">
-          <svg id="faunachangeRelativebars"></svg>
-        </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12" id="fishingmethods">
+        <svg id="fishingmethodsStackedbars"></svg>
       </div>
     </div>
+  </div>
 
-<hr>
+  <hr>
 
-    <div class="container" id="text-total">
-      <h3 id="chacha">
-        <br>
-        This line chart shows the overall fauna change since 1990 in the <span id="total-location">coastal</span> area.<br>
-        Some locations have more resilient ecosystems than others.<br>
-        Try to see how this location responded to the fishing methods.<br>
-        Click on one of the species groups to zoom in on that species group in this area.
+  <div class="container" id="text-change">
+    <h3>
+      <br>
+      These horizontal bars show the percentual difference in overall fauna since 1990.<br>
+      Trawling has been gradually decreasing between 2000 - 2007, and then steeply dropped.<br>
+      Move the slider to note how the fauna has changed in those years.<br>
+      Click on a location to zoom in on a single location.
     </h3>
-    </div>
-        <div class="container">
-          <div class="row">
-        <div class="col-12" id="faunatotal">
-          <select class="form-control" id="select_location">
-            <option value="coastal">Coastal areas</option>
-            <option value="oosterschelde">Oosterschelde</option>
-            <option value="waddenzee">Waddenzee</option>
-            <option value="westerschelde">Westerschelde</option>
-          </select>
-          <svg id="faunatotalLinechart"></svg>
-          </div>
-        </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12" id="faunachange">
+        <svg id="faunachangeRelativebars"></svg>
       </div>
-          <div class="container" id="icons">
-          <div class="row">
+    </div>
+  </div>
 
-          <div class="col-4">
-          <i class="fas fa-crow" id="birdicon"></i> Birds
-          </div>
+  <hr>
 
-          <div class="col-4">
-          <i class="fas fa-fish" id="fishicon"></i> Fish
-          </div>
+  <div class="container" id="text-total">
+    <h3 id="chacha">
+      <br>
+      This line chart shows the overall fauna change since 1990 in the <span id="total-location">coastal</span> area.<br>
+      Some locations have more resilient ecosystems than others.<br>
+      Try to see how this location responded to the fishing methods.<br>
+      Click on one of the species groups to zoom in on that species group in this area.
+    </h3>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12" id="faunatotal">
+        <select class="form-control" id="select_location">
+          <option value="coastal">Coastal areas</option>
+          <option value="oosterschelde">Oosterschelde</option>
+          <option value="waddenzee">Waddenzee</option>
+          <option value="westerschelde">Westerschelde</option>
+        </select>
+        <svg id="faunatotalLinechart"></svg>
+      </div>
+    </div>
+  </div>
+  <div class="container" id="icons">
+    <div class="row">
 
-          <div class="col-4">
-          <i class="fas fa-spider" id="benthicicon"></i> Benthic
-          </div>
-        </div>
+      <div class="col-4">
+        <i class="fas fa-crow" id="birdicon"></i> Birds
+      </div>
 
+      <div class="col-4">
+        <i class="fas fa-fish" id="fishicon"></i> Fish
+      </div>
 
-        </div>
+      <div class="col-4">
+        <i class="fas fa-spider" id="benthicicon"></i> Benthic
+      </div>
+    </div>
+  </div>
 
-        <hr>
+  <hr>
 
-
-
-    <div class="container" id= "text-circular">
-      <h3>
-This circular barplot shows the change per individual species in the <span id="individualslocation">coastal</span> area
-<br>
-It shows the intricate complexity of an ecosystem, as all species are interlinked.<br>
-The decline of one species might create possibilites for another.<br>
-Notice how some species thrive in times that others are declining rapidly.<br>
-Move the slider or click in the middle to explore the data
-<br>
-
+  <div class="container" id="text-circular">
+    <h3>
+      This circular barplot shows the change per individual species in the <span id="individualslocation">coastal</span> area.
+      <br>
+      It shows the intricate complexity of an ecosystem, as all species are interlinked.<br>
+      The decline of one species might create possibilites for another.<br>
+      Notice how some species thrive in times that others are declining rapidly.<br>
+      Move the slider or click in the middle to explore the data.
+      <br>
     </h3>
 
+  </div>
+  <div class="container" id=big-container>
+    <div class="row">
+      <div class="col-12" id="specieschange">
+        <svg id="specieschangeCircularbars"></svg>
+        <select class="form-control" id="selectSpecies">
+          <option value="fish">Fish</option>
+          <option value="bodem">Benthic</option>
+          <option value="bird">Birds</option>
+        </select>
+      </div>
     </div>
-    <div class="container" id=big-container>
-      <div class="row">
-        <div class="col-12" id="specieschange">
+  </div>
 
-          <svg id="specieschangeCircularbars"></svg>
-          <select class="form-control" id="selectSpecies">
-            <option value="fish">Fish</option>
-            <option value="bodem">Benthic</option>
-            <option value="bird">Birds</option>
-          </select>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script>
+    var d3v5 = d3
+  </script>
+  <script src="js/d3-scale-radial.js"></script>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script src='js/circularbarchart.js'></script>
+  <script src='js/stackedbarchart.js'></script>
+  <script src='js/linechart.js'></script>
+  <script src='js/horizontalbarchart.js'></script>
+  <script src='js/loaddata.js'></script>
 
-        </div>
-
-        </div>
-
-        </div>
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script>
-      var d3v5 = d3
-    </script>
-    <script src="js/d3-scale-radial.js"></script>
-    <script src="https://d3js.org/d3.v3.min.js"></script>
-    <script src='js/circularbarchart.js'></script>
-    <script src='js/stackedbarchart.js'></script>
-    <script src='js/linechart.js'></script>
-    <script src='js/horizontalbarchart.js'></script>
-    <script src='js/loaddata.js'></script>
-  </body>
+</body>
 
 </html>

@@ -20,11 +20,10 @@ methods in the past 25 years on the fauna in different locations in the
 North Sea is shown.
 
 */
-
 h3 {
   text-align: center;
   padding-top: 1em;
-  font-size: 1.7vw;
+  font-size: 1.5vw;
   color: white;
   line-height: 1.6;
 }
@@ -35,26 +34,26 @@ html, body {
 }
 
 svg {
-    font: 10px sans-serif;
-    shape-rendering: crispEdges;
-  }
+  font: 10px sans-serif;
+  shape-rendering: crispEdges;
+}
 
-  .axis path,
-  .axis line {
-    fill: none;
-    stroke: #000;
-  }
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+}
 
-  path.domain {
-    stroke: none;
-  }
+path.domain {
+  stroke: none;
+}
 
-  input[type=range]::-webkit-slider-thumb {
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-    background: rgba(0, 70, 255, 0.8);
-    cursor: pointer;
-    -webkit-appearance: none;
-  }
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: rgba(0, 70, 255, 0.8);
+  cursor: pointer;
+  -webkit-appearance: none;
+}
 
 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
@@ -79,24 +78,26 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 #showVal {
- color: white;
- font-weight: bold;
- font-size: 1.5em;
- padding-left: 0.5em;
- position: fixed;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5em;
+  padding-left: 0.5em;
+  position: fixed;
 }
 
-  .y .tick line {
-    stroke: #ddd;
-  }
+.y .tick line {
+  stroke: #ddd;
+}
 
 html, body {
   height: 100%;
 }
+
 .container {
   height: 60%;
   background-color: #89cff0
 }
+
 #text-total {
   height: 30%;
 }
@@ -121,7 +122,7 @@ html, body {
 #specieschange {
   display: flex;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   position: relative;
 }
 
@@ -141,9 +142,9 @@ html, body {
 
 /* Style the lines by removing the fill and applying a stroke */
 .line {
-    fill: none;
-    stroke: #ffab00;
-    stroke-width: 3;
+  fill: none;
+  stroke: #ffab00;
+  stroke-width: 3;
 }
 
 .overlay {
@@ -153,11 +154,11 @@ html, body {
 
 /* Style the dots by assigning a fill and stroke */
 .dot {
-    fill: #ffab00;
-    stroke: #fff;
+  fill: #ffab00;
+  stroke: #fff;
 }
 
-  .focus circle {
+.focus circle {
   fill: none;
   stroke: steelblue;
 }
@@ -165,7 +166,6 @@ html, body {
 #faunatotalLinechart {
   width: 100%;
   height: 100%;
-
 }
 
 #birdicon, #fishicon, #benthicicon {
@@ -178,26 +178,26 @@ html, body {
 }
 
 #selectSpecies {
-margin-bottom: -200px;
-width: 12%;
-border-radius: 50px;border:1px solid #AAAAAA;
-position: absolute;
-background-color: #89cff0;
-color: white;
-border-color: blue;
-border-style: none;
-font-size: 1.5em;
-font-weight: bold;
-text-align-last:center;
+  margin-bottom: -200px;
+  width: 12%;
+  border-radius: 50px;
+  border: 1px solid #AAAAAA;
+  position: absolute;
+  background-color: #89cff0;
+  color: white;
+  border-color: blue;
+  border-style: none;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align-last: center;
 }
 
-
 select {
-   -o-appearance: none;
-   -ms-appearance: none;
-   -webkit-appearance: none;
-   -moz-appearance: none;
-   appearance: none;
+  -o-appearance: none;
+  -ms-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .yo {

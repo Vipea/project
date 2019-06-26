@@ -132,8 +132,8 @@ function changeBars(data, year) {
   // Add the divide line where there is zero change
   svg.append("path")
     .attr("d", " M " + (width / 2 - 1) + " " + y("waddenzee") + " L " +
-          (width / 2 - 1) + " " + (height) + " L " + (width / 2 + 1) + " " +
-          (height) + " L " + (width / 2 + 1) + " " + y("waddenzee") + " ")
+      (width / 2 - 1) + " " + (height) + " L " + (width / 2 + 1) + " " +
+      (height) + " L " + (width / 2 + 1) + " " + y("waddenzee") + " ")
     .attr("fill", "red")
     .attr("class", "divide")
 

@@ -26,7 +26,7 @@ function initializeMethods(data) {
 
   // Transpose the data into layers
   const stack = d3v5.stack()
-  .keys(["Trawling", "Flyshoot", "Puls", "Sumwing", "Shrimps", "Miscellaneous"])
+    .keys(["Trawling", "Flyshoot", "Puls", "Sumwing", "Shrimps", "Miscellaneous"])
 
   const dataset = stack(data)
 
@@ -127,7 +127,7 @@ function initializeMethods(data) {
       const xPosition = d3v5.mouse(this)[0] + 10;
       const yPosition = d3v5.mouse(this)[1] - 25;
       tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-      tooltip.select("text").text((d["1"]-d["0"]).toPrecision(2) + " million HP days");
+      tooltip.select("text").text((d["1"] - d["0"]).toPrecision(2) + " million HP days");
     });
 
   // Create legend
