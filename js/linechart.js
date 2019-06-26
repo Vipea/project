@@ -133,7 +133,7 @@ function changeLine(linedata, location) {
 
   // Append the y axis
   svg.append("g")
-    .attr("class", "yAaxis")
+    .attr("class", "yLine")
     .call(yAxis)
     .append("text")
     .attr("transform", "rotate(-90)")
@@ -380,7 +380,7 @@ function updateLineHeight(linedata, location) {
   const yAxis = d3v5.axisLeft(y)
 
   // Update the y axis
-  d3v5.select(".yAaxis")
+  d3v5.select(".yLine")
     .transition()
     .duration(2000)
     .call(yAxis)

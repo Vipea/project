@@ -95,24 +95,19 @@ html, body {
   height: 100%;
 }
 .container {
-  height: 75%;
+  height: 50%;
   background-color: #89cff0
 }
-.container-fluid {
-  height: 75%;
-  background-color: #89cff0
-}
-
 #text-total {
-  height: 16%;
+  height: 25%;
 }
 
 #text-change {
-  height: 30%;
+  height: 25%;
 }
 
 #text-methods {
-  height: 25%;
+  height: 40%;
 }
 
 #text-circular {
