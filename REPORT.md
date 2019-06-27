@@ -388,8 +388,13 @@ There you have it, a circular bar chart.
 
 ## Sources
 https://www.clo.nl/indicatoren/nl0587-visserijtechnieken
+
 https://www.clo.nl/indicatoren/nl1599-fauna-westerschelde
+
 https://www.clo.nl/indicatoren/nl1598-fauna-oosterschelde
+
 https://www.clo.nl/indicatoren/nl1597-fauna-wadden
+
 https://www.clo.nl/indicatoren/nl1596-fauna-noordzee-kustzone
+
 http://edepot.wur.nl/284011

@@ -114,4 +114,8 @@ Furthermore I reformatted missing data in the JSON that contains the species occ
 Created a license, elaborated on readme, put the design and proposal in separate files. In the process of rewriting all d3v3 function to d3v5, one more function is left.
 
 ## 26/06
-Whole project is now in d3v5.
+Whole project is now in d3v5. Finalized all code. Finished the README.
+
+## 27/06
+Created whole report, made product video.
+Officially finished all parts of the project.

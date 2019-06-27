@@ -29,8 +29,14 @@ At last the user can choose an animal species in that location, and then transit
 
 ![](doc/17_06_storytell4.png)
 
+## Product video
+https://youtu.be/ruNwGhlOLXw
 
+## Sources of external code
+http://bl.ocks.org/mstanaland/6100713
 
-The README.md should also acknowledge sources of external code, images and other materials that are in the repository but not created by yourself. Make sure that it is clear which directories are copyrighted by different creators.
+https://bl.ocks.org/sebg/0cc55428f83eb52bdfad6f5692023b07
 
-Also note that these materials have their own respective licenses. You should at the very least note this fact (again, in the README.md). Make sure you also check the licenses to see if you should make a special statement about the source of the materials.
+https://www.d3-graph-gallery.com/graph/circular_barplot_basic.html
+
+Copyright 2019 Max Frings
