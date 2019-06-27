@@ -46,13 +46,13 @@ function changeLine(linedata, location) {
   const color = d3v5.scaleOrdinal(d3v5.schemeCategory10);
 
   // Set x axis
-  const xAxis = d3v5.axisBottom(x)
+  const xAxis = d3v5.axisBottom(x);
 
   // Set y axis
-  const yAxis = d3v5.axisLeft(y)
+  const yAxis = d3v5.axisLeft(y);
 
   // Set data
-  const data = linedata[location]
+  const data = linedata[location];
 
   // Set line function
   const line = d3v5.line()
@@ -81,7 +81,7 @@ function changeLine(linedata, location) {
   });
 
   // Map all data to specific line chart format
-  const cities = color.domain().map(function(name) {
+  const currentLocation = color.domain().map(function(name) {
     return {
       name: name,
       values: data.map(function(d) {
@@ -100,12 +100,12 @@ function changeLine(linedata, location) {
 
   // Set y domain
   y.domain([
-    d3v5.min(cities, function(c) {
+    d3v5.min(currentLocation, function(c) {
       return d3v5.min(c.values, function(v) {
         return v.temperature;
       });
     }),
-    d3v5.max(cities, function(c) {
+    d3v5.max(currentLocation, function(c) {
       return d3v5.max(c.values, function(v) {
         return v.temperature;
       });
@@ -156,7 +156,7 @@ function changeLine(linedata, location) {
 
   // Append a g element to contain the line
   const city = svg.selectAll(".city")
-    .data(cities)
+    .data(currentLocation)
     .enter().append("g")
     .attr("class", "city");
 
@@ -186,7 +186,7 @@ function changeLine(linedata, location) {
 
   // Append a g on the line to track movement
   const mousePerLine = mouseG.selectAll('.mouse-per-line')
-    .data(cities)
+    .data(currentLocation)
     .enter()
     .append("g")
     .attr("class", "mouse-per-line");
@@ -205,12 +205,13 @@ function changeLine(linedata, location) {
   mousePerLine.append("text")
     .attr("transform", "translate(10,3)")
     .attr("font-size", "12px")
-    .attr("font-weight", "bold")
+    .attr("font-weight", "bold");
 
   // Append a rect to catch mouse movements
   mouseG.append('svg:rect')
     .attr('width', width)
     .attr('height', height)
+    .attr('class', 'mouseMove')
     .attr('fill', 'none')
     .attr('pointer-events', 'all')
 
@@ -234,7 +235,7 @@ function changeLine(linedata, location) {
         .style("opacity", "1");
     })
 
-    // Update text on mouse move
+    // Moves the vertical line with every mouse movement
     .on('mousemove', function() {
       const mouse = d3v5.mouse(this);
       d3v5.select(".mouse-line")
@@ -268,11 +269,11 @@ function changeLine(linedata, location) {
             if (pos.x > mouse[0]) end = target;
             else if (pos.x < mouse[0]) beginning = target;
             else break; //position found
-          }
+          };
 
           // Set the position of the text
           d3v5.select(this).select('text')
-            .text(y.invert(pos.y).toFixed(2))
+            .text(y.invert(pos.y).toFixed(2));
 
           // Returns the new location
           return "translate(" + mouse[0] + "," + pos.y + ")";
@@ -297,7 +298,7 @@ function changeLine(linedata, location) {
 function updateLineHeight(linedata, location) {
 
   // Set data
-  const data = linedata[location]
+  const data = linedata[location];
 
   // Set margin, width and height
   const margin = {
@@ -344,7 +345,7 @@ function updateLineHeight(linedata, location) {
   }));
 
   // Map all data to specific line chart format
-  const cities = color.domain().map(function(name) {
+  const currentLocation = color.domain().map(function(name) {
     return {
       name: name,
       values: data.map(function(d) {
@@ -363,13 +364,12 @@ function updateLineHeight(linedata, location) {
 
   // Set y domain
   y.domain([
-    d3v5.min(cities, function(c) {
+    d3v5.min(currentLocation, function(c) {
       return d3v5.min(c.values, function(v) {
         return v.temperature;
       });
     }),
-    d3v5.max(cities, function(c) {
-      console.log(c)
+    d3v5.max(currentLocation, function(c) {
       return d3v5.max(c.values, function(v) {
         return v.temperature;
       });
@@ -377,17 +377,17 @@ function updateLineHeight(linedata, location) {
   ]);
 
   // Set y axis
-  const yAxis = d3v5.axisLeft(y)
+  const yAxis = d3v5.axisLeft(y);
 
   // Update the y axis
   d3v5.select(".yLine")
     .transition()
     .duration(2000)
-    .call(yAxis)
+    .call(yAxis);
 
   // Update the line
   const nieuwelijn = d3v5.select(".line")
-    .data(cities)
+    .data(currentLocation)
     .transition()
     .duration(2000)
     .attr("d", function(d) {
@@ -400,4 +400,53 @@ function updateLineHeight(linedata, location) {
   // Update the title
   d3v5.select("#lineTitle")
     .text("Overall fauna change in the " + location + " area");
+
+  // Select the line
+  const lines = document.getElementsByClassName('line');
+
+  // Moves the line with every mouse movement
+  d3v5.select(".mouseMove")
+    .on('mousemove', function() {
+      const mouse = d3v5.mouse(this);
+      d3v5.select(".mouse-line")
+        .attr("d", function() {
+          let d = "M" + mouse[0] + "," + height;
+          d += " " + mouse[0] + "," + 0;
+          return d;
+        });
+
+      // Transform the tooltip location
+      d3v5.selectAll(".mouse-per-line")
+        .attr("transform", function(d, i) {
+          const xDate = x.invert(mouse[0]),
+            bisect = d3v5.bisector(function(d) {
+              return d.date;
+            }).right;
+          idx = bisect(d.values, xDate);
+
+          // Get length of line
+          let beginning = 0,
+            end = lines[i].getTotalLength(),
+            target = null;
+
+          // Check if mouse is between the line width
+          while (true) {
+            target = Math.floor((beginning + end) / 2);
+            pos = lines[i].getPointAtLength(target);
+            if ((target === end || target === beginning) && pos.x !== mouse[0]) {
+              break;
+            }
+            if (pos.x > mouse[0]) end = target;
+            else if (pos.x < mouse[0]) beginning = target;
+            else break;
+          }
+
+          // Set the position of the text
+          d3v5.select(this).select('text')
+            .text(y.invert(pos.y).toFixed(2));
+
+          // Returns the new location
+          return "translate(" + mouse[0] + "," + pos.y + ")";
+        });
+    });
 };

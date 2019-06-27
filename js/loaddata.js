@@ -35,26 +35,26 @@ Promise.all([d3v5.json("./data/all_locations.json"),
         fishingdata = allData[3];
 
       // Create stacked bar chart
-      initializeMethods(fishingdata)
+      initializeMethods(fishingdata);
 
       // Create horizontal bar chart
-      changeBars(locationdata, "1991")
+      initializeHorizontalBars(locationdata, "1991");
 
       // Create line chart
-      changeLine(totaldata, "coastal")
+      changeLine(totaldata, "coastal");
 
       // Create circular bar chart
-      initializeBars(speciesdata, "coastal", "1991", "fish")
+      initializeBars(speciesdata, "coastal", "1991", "fish");
 
       // Onchange event for selecting species updates the circular bar chart
       $("#selectSpecies").change(function() {
-        updateCircular(speciesdata, $("#select_location").val(),
+        updateCircular(speciesdata, $("#selectLocation").val(),
           $("#customRange1").val(), $("#selectSpecies").val());
       });
 
       // Onchange event for selecting location updates the circular bar chart
-      $("#select_location").change(function() {
-        updateCircular(speciesdata, $("#select_location").val(),
+      $("#selectLocation").change(function() {
+        updateCircular(speciesdata, $("#selectLocation").val(),
           $("#customRange1").val(), $("#selectSpecies").val());
       });
 
@@ -62,7 +62,7 @@ Promise.all([d3v5.json("./data/all_locations.json"),
       // Onclick event updates horizontal and circular bars and the range input
       d3v5.selectAll(".stackedbar").on("click", function(d) {
         updateBars(locationdata, d.data.Year);
-        updateCircular(speciesdata, $("#select_location").val(), d.data.Year,
+        updateCircular(speciesdata, $("#selectLocation").val(), d.data.Year,
           $("#selectSpecies").val());
 
         $('html,body').animate({
@@ -82,7 +82,7 @@ Promise.all([d3v5.json("./data/all_locations.json"),
       // Oninput event of the slider updates horizontal and circular bars
       slider.oninput = function() {
         updateBars(locationdata, slider.value);
-        updateCircular(speciesdata, $("#select_location").val(), slider.value,
+        updateCircular(speciesdata, $("#selectLocation").val(), slider.value,
           $("#selectSpecies").val());
         document.getElementById("showVal").innerHTML = slider.value;
       };
@@ -98,9 +98,9 @@ Promise.all([d3v5.json("./data/all_locations.json"),
           'slow');
 
         // Update chart titles to the new location
-        $("#total-location").html(d)
-        $("#individualslocation").html(d)
-      })
+        $("#totalLocation").html(d.location);
+        $("#individualsLocation").html(d.location);
+      });
 
       // Onclick of horizontal bar ticks updates line chart and circular bars
       d3v5.select("#faunachangeRelativebars").selectAll(".tick").on("click",
@@ -114,8 +114,8 @@ Promise.all([d3v5.json("./data/all_locations.json"),
             'slow');
 
           // Update chart titles to the new location
-          $("#total-location").html(d);
-          $("#individualslocation").html(d);
+          $("#totalLocation").html(d);
+          $("#individualsLocation").html(d);
         });
 
       // On click of horizontal bar labels updates line chart and circular bars
@@ -130,13 +130,13 @@ Promise.all([d3v5.json("./data/all_locations.json"),
             'slow');
 
           // Update chart titles to the new location
-          $("#total-location").html(d);
-          $("#individualslocation").html(d);
-        })
+          $("#totalLocation").html(d.location);
+          $("#individualsLocation").html(d.location);
+        });
 
       // Onclick of the icons updates circular bar chart
       $("#birdicon").click(function() {
-        updateCircular(speciesdata, $("#select_location").val(),
+        updateCircular(speciesdata, $("#selectLocation").val(),
           $("#customRange1").val(), "bird");
         $('html,body').animate({
             scrollTop: $("#text-circular").offset().top
@@ -147,7 +147,7 @@ Promise.all([d3v5.json("./data/all_locations.json"),
 
       // Onclick of the icons updates circular bar chart
       $("#fishicon").click(function() {
-        updateCircular(speciesdata, $("#select_location").val(),
+        updateCircular(speciesdata, $("#selectLocation").val(),
           $("#customRange1").val(), "fish");
         $('html,body').animate({
             scrollTop: $("#text-circular").offset().top
@@ -158,7 +158,7 @@ Promise.all([d3v5.json("./data/all_locations.json"),
 
       // Onclick of the icons updates circular bar chart
       $("#benthicicon").click(function() {
-        updateCircular(speciesdata, $("#select_location").val(),
+        updateCircular(speciesdata, $("#selectLocation").val(),
           $("#customRange1").val(), "bodem");
         $('html,body').animate({
             scrollTop: $("#text-circular").offset().top

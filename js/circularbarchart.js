@@ -46,7 +46,7 @@ function initializeBars(circulardata, location, year, species) {
     .append("g")
     .attr("transform", "translate(" + (width / 2 + margin.left) + "," +
       (height / 2 + margin.top) + ")")
-    .attr("class", "theg")
+    .attr("class", "theg");
 
   // X scale
   const x = d3v5.scaleBand()
@@ -70,9 +70,9 @@ function initializeBars(circulardata, location, year, species) {
     .append("path")
     .attr("fill", function(d) {
       if (d.value >= 100) {
-        return "#98FB98"
+        return "#98FB98";
       } else {
-        return "#ff6961"
+        return "#ff6961";
       }
     })
     .attr("class", "yo")
@@ -121,7 +121,7 @@ function initializeBars(circulardata, location, year, species) {
     .attr("class", "speciesbar")
     .append("text")
     .text(function(d) {
-      return (d.name)
+      return (d.name);
     })
     .attr("transform", function(d) {
       return (x(d.name) + x.bandwidth() / 2 + Math.PI) %
@@ -129,7 +129,7 @@ function initializeBars(circulardata, location, year, species) {
     })
     .style("font-size", "11px")
     .attr("alignment-baseline", "middle")
-    .attr("class", "specieslabel")
+    .attr("class", "specieslabel");
 
   // Set legend title
   d3v5.select("#specieschangeCircularbars").append("text")
@@ -142,7 +142,7 @@ function initializeBars(circulardata, location, year, species) {
     .attr("class", "circularTitle")
     .attr("fill", "black")
     .style("font-size", 20)
-    .style("font-family", "sans-serif")
+    .style("font-family", "sans-serif");
 
 
 
@@ -161,14 +161,14 @@ function initializeBars(circulardata, location, year, species) {
     .attr("font-weight", "bold");
 
   const legendGreen = d3v5.select("#specieschangeCircularbars").append("g")
-    .attr("class", "greenlegend")
+    .attr("class", "greenlegend");
 
   // Draw legend
   legendGreen.append("circle")
     .attr("cx", 10)
     .attr("cy", 50)
     .attr("r", 10)
-    .style("fill", "#98FB98")
+    .style("fill", "#98FB98");
 
   // Set legend text
   legendGreen.append("text")
@@ -177,18 +177,18 @@ function initializeBars(circulardata, location, year, species) {
     .attr("font-size", "11px")
     .attr("dy", ".35em")
     .style("text-anchor", "start")
-    .text("Species increased since 1990")
+    .text("Species increased since 1990");
 
   // Add the red legend
   const legendRed = d3v5.select("#specieschangeCircularbars").append("g")
-    .attr("class", "redlegend")
+    .attr("class", "redlegend");
 
   // Draw legend
   legendRed.append("circle")
     .attr("cx", 10)
     .attr("cy", 75)
     .attr("r", 10)
-    .style("fill", "#ff6961")
+    .style("fill", "#ff6961");
 
   // Set legend text
   legendRed.append("text")
@@ -197,13 +197,13 @@ function initializeBars(circulardata, location, year, species) {
     .attr("font-size", "11px")
     .attr("dy", ".35em")
     .style("text-anchor", "start")
-    .text("Species decreased since 1990")
+    .text("Species decreased since 1990");
 };
 
 
 // Function to update the circular bar chart
 function updateCircular(circulardata, location, year, species) {
-  const data = circulardata[location][year][species]
+  const data = circulardata[location][year][species];
 
   // Update title
   d3v5.select(".circularTitle")
@@ -216,8 +216,8 @@ function updateCircular(circulardata, location, year, species) {
           " fauna in the " + location +
           " area in " + year +
           " relative to 1990");
-      }
-    })
+      };
+    });
 
   // Set the dimensions and margins of the graph
   const margin = {
@@ -319,7 +319,7 @@ function updateCircular(circulardata, location, year, species) {
     .attr("class", "nwebar")
     .append("text")
     .text(function(d) {
-      return (d.name)
+      return (d.name);
     })
     .attr("transform", function(d) {
       return (x(d.name) + x.bandwidth() / 2 + Math.PI) %
@@ -327,7 +327,7 @@ function updateCircular(circulardata, location, year, species) {
     })
     .style("font-size", "11px")
     .attr("alignment-baseline", "middle")
-    .attr("class", "specieslabel")
+    .attr("class", "specieslabel");
 
   // Exit and remove the old labels
   newLabels.exit().remove();

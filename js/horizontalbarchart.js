@@ -22,13 +22,13 @@ North Sea is shown.
 */
 
 // Creates the horizontal bar chart
-function changeBars(data, year) {
+function initializeHorizontalBars(data, year) {
 
   // Set data
-  const locdata = data[year]
+  const locdata = data[year];
 
   // Select SVG
-  const svg = d3v5.select("#faunachangeRelativebars")
+  const svg = d3v5.select("#faunachangeRelativebars");
 
   // Set margin
   const margin = {
@@ -48,7 +48,7 @@ function changeBars(data, year) {
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-    .attr("class", "horizontal")
+    .attr("class", "horizontal");
 
   // Set x scale
   const x = d3v5.scaleLinear()
@@ -64,7 +64,7 @@ function changeBars(data, year) {
 
   // Make y axis to show bar names
   const yAxis = d3v5.axisRight(y)
-    .tickSize(0)
+    .tickSize(0);
 
   // Append y axis
   const gy = svg.append("g")
@@ -117,16 +117,16 @@ function changeBars(data, year) {
     //x position is 3 pixels to the right of the bar
     .attr("x", function(d) {
       if (d.value - 100 >= 0) {
-        return width / 2 + x(Math.abs(100 - d.value)) + 10
+        return width / 2 + x(Math.abs(100 - d.value)) + 10;
       } else {
-        return width / 2 - x(100 - d.value) - 40
+        return width / 2 - x(100 - d.value) - 40;
       }
     })
     .text(function(d) {
       return d.value - 100 + "%";
     })
     .attr("id", function(d) {
-      return d.location
+      return d.location;
     });
 
   // Add the divide line where there is zero change
@@ -135,13 +135,13 @@ function changeBars(data, year) {
       (width / 2 - 1) + " " + (height) + " L " + (width / 2 + 1) + " " +
       (height) + " L " + (width / 2 + 1) + " " + y("waddenzee") + " ")
     .attr("fill", "red")
-    .attr("class", "divide")
+    .attr("class", "divide");
 
   // Set legend title
   svg.append("text")
     .attr("transform",
       "translate(" + (width / 2) + " ," +
-      9 + ")")
+      10 + ")")
     .style("text-anchor", "middle")
     .attr("dy", ".25em")
     .text("Fauna change relative to 1990 in the year " + year)
