@@ -1,13 +1,17 @@
-"""
-Create a report (REPORT.md), based on your design document, containing important decisions that you’ve made, e.g. where you changed your mind during the past weeks. This is how you show the reviewer that you actually understand what you have done.
-
-Start with a short description of your application (like in the README.md, but very short, including a single screen shot).
-
-Clearly describe the technical design: how is the functionality implemented in your code? This should be like your DESIGN.md but updated to reflect the final application. First, give a high level overview, which helps us navigate and understand the total of your code (which components are there?). Second, go into detail, and describe the modules/classes (apps) files/functions (data) and how they relate.
-"""
-
 ## Description
 This data visualization project shows how fishing methods in the North Sea affected bird, fish and benthic fauna in different locations.
+
+This first graph shows the fishing methods that are used in the North Sea.
+![](doc/17_06_storytell1.png)
+
+The second graph shows the fauna change per location for a certain year.
+![](doc/17_06_storytell2.png)
+
+The third graph shows the fauna change for a certain location for all years.
+![](doc/17_06_storytell3.png)
+
+The fourth graph shows the fauna change per individual species group for a certain location for a certain year.
+![](doc/17_06_storytell4.png)
 
 ## Technical design
 
@@ -15,7 +19,7 @@ This data visualization project shows how fishing methods in the North Sea affec
 
 The flowchart above gives a high level overview of this project. Firstly, a collection of CSV datasets are merged and transformed to 4 JSON files. The JS file loaddata.js loads these 4 JSON files, from this JS file, all the other JS files are called which each initialize a graph. Then the file loaddata.js binds all the event listeners to all HTML and SVG elements in the project to make all graphs interactive with each other.
 
-## Description of JavaScript files
+## Overview of JavaScript files
 
 ### loaddata.js
 Loads all the JSON files and binds all the event listeners to HTML and SVG elements.
@@ -34,13 +38,20 @@ This file contains two functions, changeLine() creates the line chart at the sta
 ### circularbarchart.js
 This file contains two functions, initializeBars() creates the circular bar chart at the start and updateCircular() updates the graph.
 
-"""
-Clearly describe challenges that your have met during development. Document all important changes that your have made with regard to your design document (from the PROCESS.md). Here, we can see how much you have learned in the past month.
+## Important changes, challenges, trade-offs
 
-Defend your decisions by writing an argument of a most a single paragraph. Why was it good to do it different than you thought before? Are there trade-offs for your current solution? In an ideal world, given much more time, would you choose another solution?
+One major change was that my initial design was a data visualization which could be seen in a single screens width and height. However, it soon became clear the charts would be too small and there would be no room to add text to tell a story about the visualization. That's why I decided to take another approach by giving every chart a full screens width and height and added text to tell a story. I also added clickable elements in every graph which creates a smooth transition to the next graph, in which the user can keeping zooming in on a part of the data and get to know more.
+One trade-off that comes to mind is that the user is not able to see the fishing method stacked bar chart in combination with the other graphs. So it might be a bit more difficult to directly see how different fishing methods affect the fauna. But therefore I added extra background information that makes it easier, and also the user can simply scroll back up if they want to check the fishing methods stacked bar chart again.
 
-Make sure the document is complete and reflects the final state of the application. The document will be an important part of your grade.
-"""
+Another change is the relative bar chart that shows the fauna change per location. In my original design the bars are oriented vertically, but in my final project the bars are oriented horizontally. I partly did this because I already had experience with placing bars vertically and wanted an extra challenge by placing the bars horizontally, which creates some extra difficulty as described below in the in-depth section. I don't think one or the other is more clear, they serve the same purpose. A horizontal bar chart just looks cooler.
+
+The line chart as well as my stacked bar chart are my solid rocks within the project, they didn't change. They are awesome and serve their jobs well, that is to present the data in an easy-to-understand manner. I added some more fanciness though, like a tooltip per fishing method in the stacked bar chart, and a line tooltip in the line chart. Another change that I made later was to add links in the legend of the fishing method stacked bar chart so that when the user presses on one of the fishing methods in the legend it will take the user to a website with more information about that fishing method.
+
+Lastly, another major change was that instead of showing another relative change bar chart for the species in a certain location, I decided to change this for a circular bar chart. The circular bar chart allows the user to seethe relative change for all animals in a certain year and location belonging to a certain group. If I were to choose another relative change bar chart instead, I would not have enough room to show every single animal species and instead would be only able to show the total fauna change per group in a certain year and location, without splitting the group up in all the sub groups. The radial characteristics of the circular bar chart help to display a lot of data on the screen at once, since a lot of bars fit on the screen that way. Another change that I made, after I decided that I was going to use the circular bar chart, was the position of my select element. I added a select element so that the user could select a species and view the change for that species. The position of this element used to be at the bottom of the page. However with a lot of CSS flexbox magic and absolute positions and select element styling I managed to get a really cool effect in which the current selection displays in the middle of the circular bar chart as such:
+
+![](doc/20_06_tooltip.png)
+
+I did face many challenges with the circular bar plot, it was difficult to get all the paths in their correct position, as well as updating them gracefully. But the one who perseveres succeeds in the end, or dies a perseverer. Is that a word?
 
 ## In-depth overview
 A total of 13 CSV datasets and 1 scientific report from the Wageningen University were collected for this project. All data was then transformed to JSON formats using multiple python scripts in order to get the right format for each JSON file. The project consists of 4 different interactive graphs, and each of these graphs takes one JSON file. The JSON files are first loaded in through a JS file called loaddata.js
